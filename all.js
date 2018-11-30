@@ -823,8 +823,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -912,10 +910,11 @@ var Special = function (_BaseSpecial) {
 
       EL.rResult.textContent = '\u042F \u0441\u043A\u0430\u0447\u0430\u043B ' + this.correctAnswers + '/' + _data2.default.questions.length + ' \u0444\u0430\u0439\u043B\u043E\u0432';
       EL.rTitle.textContent = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + this.traffic + ' \u0433\u0438\u0433\u0430\u0431\u0430\u0439\u0442';
-      EL.rOutOf.innerHTML = [].concat(_toConsumableArray(Array(this.traffic))).reduce(function (prev, curr) {
-        prev += '<span></span>';
-        return prev;
-      }, '<span></span>');
+      if (this.correctAnswers > 0) {
+        EL.rOutOf.innerHTML = '<span></span>' * this.correctAnswers;
+      } else {
+        EL.rOutOf.innerHTML = '<span class="is-null"></span>';
+      }
 
       (0, _dom.removeChildren)(EL.rShare);
       Share.make(EL.rShare, {
@@ -1279,7 +1278,7 @@ var Slider = function () {
       min: 0,
       max: 10,
       value: 0,
-      startValue: 4
+      startValue: 0
     }, props);
 
     this.settings = {
@@ -1290,6 +1289,7 @@ var Slider = function () {
     this.start = this.start.bind(this);
     this.move = this.move.bind(this);
     this.stop = this.stop.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
 
     this.init();
   }
@@ -1354,6 +1354,37 @@ var Slider = function () {
       document.removeEventListener('touchcancel', this.stop);
     }
   }, {
+    key: 'clickHandler',
+    value: function clickHandler(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (e.touches) {
+        e = e.touches[0];
+      }
+
+      var x = e.clientX;
+      var rect = this.el.lines.getBoundingClientRect();
+      var minX = rect.x;
+      var step = this.el.base.offsetWidth / this.props.max;
+      var prevPoint = minX;
+      var currPoint = prevPoint;
+
+      for (var i = 0; i < this.props.max; i++) {
+        currPoint += step;
+
+        if (Math.abs(prevPoint - x) < Math.abs(currPoint - x)) {
+          this.setPosition(i);
+          return;
+        } else if (i === this.props.max - 1) {
+          this.setPosition(this.props.max);
+          return;
+        }
+
+        prevPoint = currPoint;
+      }
+    }
+  }, {
     key: 'reset',
     value: function reset() {
       this.el.handle.appendChild(this.el.handleTool);
@@ -1367,6 +1398,10 @@ var Slider = function () {
   }, {
     key: 'setPosition',
     value: function setPosition(value) {
+      if (value === this.props.value) {
+        return;
+      }
+
       if (value < this.props.min) {
         this.props.value = this.props.min;
       } else if (value > this.props.max) {
@@ -1376,6 +1411,11 @@ var Slider = function () {
       }
 
       var shift = this.settings.step * value;
+      if (shift < 0) {
+        shift = 0;
+      } else if (shift > 100) {
+        shift = 100;
+      }
 
       this.el.lineHope.style.width = this.props.value * this.settings.step + '%';
 
@@ -1467,6 +1507,8 @@ var Slider = function () {
     value: function initEvents() {
       this.el.handleTool.addEventListener('mousedown', this.start);
       this.el.handleTool.addEventListener('touchstart', this.start);
+
+      this.el.lines.addEventListener('click', this.clickHandler);
     }
   }, {
     key: 'init',
@@ -2442,7 +2484,7 @@ exports.default = {
     text: 'Шоу Юрия Дудя обрело популярность в том числе и благодаря его интервью с рэперами (рилток).',
     title: 'Сколько трафика нужно, чтобы посмотреть все такие выпуски?',
     notice: 'Передача с рэпером весит в среднем 260 мегабайт.',
-    img: '',
+    img: '<svg width="320.54" height="180" viewBox="0 0 320.54 180"><path fill="#00b9ff" d="M0 180v-17.5h12.43c8.35 0 17 0 25.48.06 1.8 0 2.42-.27 3-2.06C56.76 111.27 72.45 62.76 91.15 5.08c.11-.34.24-.69.39-1.11s.31-.87.52-1.47l.87-2.5 1.34 3.4c.41 1 .73 1.83 1 2.65q9.58 27.69 19.19 55.45 14.72 42.51 29.42 85c.58 1.68 1.17 3.35 1.76 5 1.08 3.06 2.2 6.23 3.21 9.37.43 1.37.94 1.73 2.49 1.73l76.12-.05 74.76-.05h10.29l.29.28a1.39 1.39 0 0 1 .35 1.07v1.01l-26.58 1.29-285.54 13.8zm2-15.54v13.49l277-13.41h-51.53l-76.12.05c-2.4 0-3.66-.9-4.35-3.09-1-3.11-2.12-6.26-3.19-9.31-.59-1.68-1.19-3.35-1.77-5q-14.69-42.53-29.42-85Q102.99 34.4 93.4 6.67c-.11-.34-.23-.69-.36-1v.08C74.32 63.37 58.6 111.86 42.79 161.11c-.95 2.85-2.51 3.4-4.89 3.4-8.51-.08-17.13-.07-25.47-.06H1.96zm142.28-.6h-98l.54-1.34 19.25-48.09c8.65-21.6 17.32-43.26 26.06-65.12l.86-2.16.94 2.13c17.5 39.67 34.88 79.24 49.8 113.21zm-95.15-2h92.16c-14.51-33.05-31.31-71.28-48.25-109.71q-12.68 31.71-25.2 62.96z"/><path fill="#d24b91" d="M267.39 149.6h-78.15v-1-2.56c0-2.5 0-5.08.06-7.62 0-1.1 1.62-2 2.49-2.12a37.23 37.23 0 0 1 6.6 0 2.76 2.76 0 0 0 1.94-.23 3.14 3.14 0 0 0 .45-2.11c-.18-19.1-.1-38.41-.05-57.1a28.77 28.77 0 0 1 6.69-18.84c6-7.19 14.33-11 22.92-10.39s16.46 5.55 21.47 13.6a28.51 28.51 0 0 1 4.37 15.21v57.12c0 .85-.05 1.68-.05 2.76h11.27v13.28zm-76.19-2h74.23v-9.37h-11.27v-1c0-1.62 0-2.7.05-3.79v-57a26.58 26.58 0 0 0-4.07-14.18c-4.66-7.5-11.93-12.12-19.94-12.67s-15.69 3-21.27 9.69a26.86 26.86 0 0 0-6.24 17.58c-.05 18.68-.11 38 .05 57.11a4.66 4.66 0 0 1-1.1 3.57 4.41 4.41 0 0 1-3.45.72 35.41 35.41 0 0 0-6.24 0 1.88 1.88 0 0 0-.7.41c-.07 2.47-.06 5-.05 7.37v1.59zm.05-9.17s.01.06.01.04zm53.16-.3h-31.63l-.14-1a14.94 14.94 0 0 1-.2-2.15v-19.56-39.16a16.24 16.24 0 0 1 6.05-12.68 15.82 15.82 0 0 1 13.3-3.23c7 1.47 12.58 8.6 12.63 16.23v61.56zm-29.94-2h28v-15-14.85-29.7c0-6.74-4.92-13-11.08-14.33a13.87 13.87 0 0 0-11.66 2.84 14.29 14.29 0 0 0-5.32 11.16V134.96a9.31 9.31 0 0 0 .07 1.25zM2.94 149.86a2.69 2.69 0 0 1-2-.66 3.31 3.31 0 0 1-.71-2.61v-91.2c-.05-.88-.05-1.88-.05-3.15v-1h1c11.88.31 24.26 1.78 34.43 10.44 4.47 3.8 7.69 10.69 8.21 17.54a23.54 23.54 0 0 1-4.94 16.74 25.22 25.22 0 0 1 7.09 12.41 43.38 43.38 0 0 1 .16 19.79c-2.69 11.7-12.53 19.8-25.76 21.12-3.65.35-7.37.38-11 .42-2 0-4.13 0-6.2.12h-.23zm-.76-96.61c0 .8 0 1.45.05 2.09v91.25a2.86 2.86 0 0 0 .11 1.17 1.26 1.26 0 0 0 .78.11c2.1-.08 4.22-.1 6.26-.12 3.55 0 7.22-.07 10.79-.41 12.32-1.23 21.55-8.74 24.09-19.6a41.44 41.44 0 0 0-.15-18.88 23.43 23.43 0 0 0-7.19-12.06l-.7-.64.63-.72a21.53 21.53 0 0 0 5.06-16c-.48-6.35-3.43-12.71-7.52-16.19-8.94-7.66-19.37-9.59-32.21-10zm10 84.95V64.7h1c8.08.16 16.08 5.59 18.23 12.3 2.61 7.84.12 13.4-9.55 20.83l.24.15c1.16.7 2.37 1.42 3.48 2.18a22 22 0 0 1 9.93 19.25c-.12 7.94-4 13.48-11.18 16a50.22 50.22 0 0 1-7.29 1.76c-1.2.23-2.42.46-3.67.74zm2-71.46v69l2.54-.49a48.8 48.8 0 0 0 7-1.68c6.44-2.28 9.77-7.06 9.87-14.21.1-7.5-2.87-13.26-9.09-17.62-1.06-.73-2.23-1.43-3.37-2.11l-1.5-.9-1.24-.76 1.17-.86c9.91-7.34 12.44-12.27 10-19.53-1.84-5.72-8.48-10.3-15.42-10.85zM153.17 153.19h-2.39v-13.5l.88-.09 2.87-.27c1.58-.14 3.07-.28 4.58-.47 9.33-1.22 12.89-5.17 13.15-14.55v-2.41-.32l-2.37-.37a47.27 47.27 0 0 1-6.28-1.23c-13.81-4-23.83-16.6-24.37-30.66-.3-8.54-.23-17.24-.17-25.65 0-3.7.06-7.41.06-11.14v-1h13.23l.05.93c.05 1 .11 2 .11 2.89V86.6c.05 10.39 9.12 20 19 20.24a5 5 0 0 0 .55 0V51.48h13.6v72.87c0 11.45-3.51 19-11 23.75-6.79 4.34-14.58 5.09-21.5 5.09zm-.43-2c6.73.05 14.36-.62 20.88-4.82 6.91-4.36 10.13-11.38 10.13-22.1V78.32v-25h-9.69v55.05l-.83.13a11.06 11.06 0 0 1-1.7.17c-10.93-.11-20.93-10.68-20.93-22.07V65.76 55.34c0-.59 0-1.22-.06-1.85h-9.42c0 3.41 0 6.8-.06 10.18-.07 8.39-.13 17.08.16 25.57.51 13.22 10 25.09 23 28.85a45.72 45.72 0 0 0 6 1.17c1.06.16 2.14.32 3.23.52l.81.15V124.37c-.28 10.31-4.58 15.08-14.85 16.42-1.55.2-3.06.34-4.66.48l-2 .18v9.79zM278.45 149.6c-1.36 0-2.67-.05-3.9-.16l-.89-.08v-.9c-.05-31.84-.05-64.46-.05-96v-1h13.44v28l2.07.29a38.33 38.33 0 0 1 5.23.94c10.59 2.8 18.79 9.58 23.08 19.08a35.74 35.74 0 0 1-.78 30.81 31.17 31.17 0 0 1-8.48 9.88c-7.91 6.47-20.18 9.14-29.72 9.14zm-2.84-2c9.45.6 23-1.78 31.32-8.56a29.27 29.27 0 0 0 8-9.24 34.25 34.25 0 0 0 .75-29.14c-4-9-11.79-15.35-21.81-18a37 37 0 0 0-5-.89c-1-.13-1.95-.26-3-.43l-.82-.14V53.43h-9.45v94.12zm9.69-10V92.41h1a21.08 21.08 0 0 1 18.3 9.38c5.31 7.55 5.56 15.92.74 24.19-4.16 7.24-10.54 11.11-19 11.49zm2-43.15v41.08A19.85 19.85 0 0 0 303.6 125c4.42-7.57 4.19-15.2-.65-22.08a19 19 0 0 0-15.69-8.55z"/></svg>',
     size: 4,
     answer: {
       correct: 'В десятку. Всего на канале «вДудь» 16 интервью с рэперами. Теперь вы знаете, что сказал бы каждый, оказавшись перед президентом.',

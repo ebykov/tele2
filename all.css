@@ -413,9 +413,9 @@ button.tele2-btn.is-disabled,
   width: 100%;
 }
 .tele2-test__slider {
-  width: 400px;
+  width: 380px;
   max-width: 100%;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 .tele2-result {
   width: 640px;
@@ -465,6 +465,12 @@ button.tele2-btn.is-disabled,
   -webkit-box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
           box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
   overflow: hidden;
+}
+.tele2-result__out-of > span.is-null {
+  width: 50px;
+  height: 50px;
+  background-image: url("https://leonardo.osnova.io/e6458909-c599-44c0-f3ff-91497b25feac/");
+  background-size: 50px;
 }
 .tele2-result__share {
   display: -webkit-box;
