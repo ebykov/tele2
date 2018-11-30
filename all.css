@@ -1,0 +1,599 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700);
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+.t2slider {
+  position: relative;
+  width: 100%;
+  padding: 17px 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.t2slider-base {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 5px;
+  background-color: #4d5159;
+  border-radius: 100px;
+}
+.t2slider-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.t2slider-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+}
+.t2slider-line--hope {
+  background-color: #00b9ff;
+  background-image: linear-gradient(45deg, #fff 0px, #fff 3.5px, #00b9ff 3.5px, #00b9ff 5.5px, #fff 5.5px);
+  background-repeat: repeat;
+  background-size: 9px 100%;
+}
+.t2slider-line--hope.is-chosen {
+  background-image: none;
+  background-color: #d24b91;
+}
+.t2slider-line--real {
+  background-color: #d24b91;
+  background-repeat: repeat;
+  background-size: 9px 100%;
+}
+.t2slider-line--real.is-less {
+  background-image: linear-gradient(45deg, #1f2229 0px, #1f2229 3.5px, #9f9fa0 3.5px, #9f9fa0 5.5px, #1f2229 5.5px);
+}
+.t2slider-line--real.is-more {
+  background-image: linear-gradient(45deg, #1f2229 0px, #1f2229 3.5px, #d24b91 3.5px, #d24b91 5.5px, #1f2229 5.5px);
+}
+.t2slider-origin {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  will-change: transform;
+}
+.t2slider-handle {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+.t2slider-handle__tool {
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 100%;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.t2slider-handle__tool:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+.t2slider-handle__tool::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #00b9ff;
+  border-radius: 100%;
+}
+.t2slider-handle__tooltip {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+.t2slider-scale {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 10px;
+}
+.t2slider-scale > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+}
+.t2slider-scale > span::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background-color: #4d5159;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+.t2slider-scale > span[data-value]::after {
+  content: attr(data-value);
+  width: auto;
+  height: auto;
+  margin-top: -2px;
+  color: #4d5159;
+  font-size: 14px;
+  line-height: 1;
+  background-color: transparent;
+}
+.tele2 {
+  position: relative;
+  z-index: 99;
+  width: 1060px;
+  max-width: 100%;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.tele2 *,
+.tele2 *:before,
+.tele2 *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.tele2 svg {
+  display: block;
+  fill: currentColor;
+  pointer-events: none;
+}
+.tele2 b {
+  font-weight: 700;
+}
+.tele2 button {
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+button.tele2-btn,
+.tele2-btn {
+  min-width: 140px;
+  height: 45px;
+  padding: 0 10px 2px;
+  margin: 0;
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  border: 2px solid currentColor;
+  border-radius: 5px;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+abutton.tele2-btn,
+a.tele2-btn {
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+}
+button.tele2-btn:hover,
+.tele2-btn:hover {
+  color: #d24b91;
+}
+@media (hover none), (hover on-demand) {
+  button.tele2-btn:hover,
+  .tele2-btn:hover {
+    color: #fff;
+  }
+}
+button.tele2-btn.is-disabled,
+.tele2-btn.is-disabled {
+  color: #4d5159 !important;
+}
+.tele2__bg {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1f2229;
+}
+.tele2__main {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 600px;
+  border: 3px solid #d24b91;
+  border-radius: 5px;
+  background-color: #1f2229;
+  overflow: hidden;
+}
+.tele2__main.is-result {
+  border: 0;
+}
+.tele2-logo {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  right: 22px;
+  display: block;
+  border: 0 !important;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.tele2-logo:hover {
+  opacity: 0.6;
+}
+@media (hover none), (hover on-demand) {
+  .tele2-logo:hover {
+    opacity: 1;
+  }
+}
+.tele2-enter {
+  position: relative;
+  width: 500px;
+  max-width: 100%;
+  margin: 50px auto 0;
+}
+.tele2-enter__img {
+  position: absolute;
+  top: 200px;
+  right: 0;
+}
+.tele2-enter__inner {
+  position: relative;
+  z-index: 1;
+  width: 370px;
+  max-width: 100%;
+}
+.tele2-enter__headline {
+  color: rgba(255,255,255,0.3);
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.tele2-enter__title {
+  margin-top: 20px;
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+}
+.tele2-enter__text {
+  margin-top: 30px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.5em;
+}
+.tele2-enter__btn {
+  margin-top: 288px;
+}
+.tele2-test {
+  position: relative;
+}
+.tele2-test__pages {
+  position: absolute;
+  top: 17px;
+  left: 20px;
+  width: 95px;
+  height: 30px;
+  color: #4d5159;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  border: 2px solid currentColor;
+  border-radius: 100px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.tele2-test__inner {
+  position: relative;
+  width: 560px;
+  max-width: 100%;
+  min-height: 594px;
+  padding: 80px 0 150px;
+  margin: 0 auto;
+}
+.tele2-test__head {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.tele2-test__spinner {
+  width: 75px;
+  height: 75px;
+  color: #d24b91;
+  -webkit-animation: spin 1s steps(12) infinite;
+          animation: spin 1s steps(12) infinite;
+}
+.tele2-test__img {
+  -webkit-transition: -webkit-filter 0.5s;
+  transition: -webkit-filter 0.5s;
+  transition: filter 0.5s;
+  transition: filter 0.5s, -webkit-filter 0.5s;
+}
+.tele2-test__img.is-preview {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+.tele2-test__body {
+  margin-top: 40px;
+}
+.tele2-test__q {
+  color: #fff;
+  line-height: 1.5em;
+}
+.tele2-test__q-title {
+  margin-top: 14px;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+}
+.tele2-test__q-notice {
+  margin-top: 10px;
+  opacity: 0.4;
+}
+.tele2-test__answer {
+  color: #fff;
+  line-height: 1.5em;
+}
+.tele2-test__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 65px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+.tele2-test__slider {
+  width: 400px;
+  max-width: 100%;
+  margin-right: 20px;
+}
+.tele2-result {
+  width: 640px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.tele2-result__head {
+  padding: 47px 43px 42px;
+  text-align: center;
+  border: 3px solid #d24b91;
+  border-radius: 5px;
+}
+.tele2-result__result {
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+}
+.tele2-result__title {
+  margin-top: 5px;
+  color: #00b9ff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+.tele2-result__out-of {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 12px;
+  margin-left: 20px;
+}
+.tele2-result__out-of > span {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  border-radius: 100%;
+  background-image: url("https://leonardo.osnova.io/4fd29d63-fe9f-5fe8-d760-57f8f9b89aa9/");
+  background-size: 40px;
+  -webkit-box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
+          box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
+  overflow: hidden;
+}
+.tele2-result__share {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 20px;
+  min-height: 44px;
+}
+.tele2-result__restart {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.tele2-result__restart > span {
+  margin-right: 8px;
+}
+.tele2-result__restart:hover {
+  opacity: 1;
+}
+@media (hover none), (hover on-demand) {
+  .tele2-result__restart:hover {
+    opacity: 0.5;
+  }
+}
+.tele2-result__bottom {
+  margin-top: 20px;
+  padding: 34px 48px 42px 57px;
+  border: 3px solid #fff;
+  border-radius: 5px;
+}
+.tele2-result__text {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.5em;
+}
+.tele2-result__btn {
+  margin-top: 32px;
+}
+.tele2 .likely--custom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.tele2 .likely__widget {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 58px;
+  height: 44px;
+  color: #fff;
+  border: 2px solid currentColor;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.tele2 .likely__widget:not(:last-child) {
+  margin-right: 10px;
+}
+.tele2 .likely__widget:hover {
+  color: #1f2229;
+  background-color: #fff;
+}
+@media (hover none), (hover on-demand) {
+  .tele2 .likely__widget:hover {
+    color: #fff;
+    background-color: transparent;
+  }
+}
+@media (min-width: 680px) {
+  .tele2 .likely__widget--facebook {
+    padding: 0 20px 0 8px;
+  }
+}
+.tele2 .likely__counter {
+  display: none;
+}
+.tele2 .likely__icon {
+  background-color: transparent;
+}
+.tele2 .likely__icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+.tele2 .likely__icon--vkontakte svg {
+  width: 28px;
+  height: 28px;
+}
+@media (min-width: 680px) {
+  .tele2 .likely__icon--facebook {
+    margin-right: 6px;
+  }
+}
+.tele2 .likely__button {
+  display: none;
+  font-size: 18px;
+  line-height: 1;
+}
+@media (min-width: 680px) {
+  .tele2 .likely__button {
+    display: block;
+  }
+}
+/*# sourceMappingURL=src/css/special.css.map */
+
+/*# sourceMappingURL=all.css.map*/
