@@ -1,0 +1,511 @@
+@import 'mq'
+@import 'functions'
+@import 'keyframes'
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:700');
+
+$colors = {
+  main: #D24B91,
+  extra: #00B9FF,
+  bg: #1F2229
+}
+
+fontRobotoSlab(weight = 700)
+  font-family: Roboto Slab, serif
+  font-weight: weight
+
+.t2slider
+  position: relative
+  width: 100%
+  padding: 17px 0
+  user-select: none
+
+  &-base
+    position: relative
+    z-index: 1
+    width: 100%
+    height: 5px
+    background-color: #4D5159
+    border-radius: 100px
+
+  &-lines
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+  &-line
+    position: absolute
+    top: 0
+    left: 0
+    width: 0
+    height: 100%
+
+    &--hope
+      background-color: $colors.extra
+      background-image: linear-gradient(45deg, #fff 0px, #fff 3.5px, $colors.extra 3.5px, $colors.extra 5.5px, #fff 5.5px)
+      background-repeat: repeat
+      background-size: 9px 100%
+
+      &.is-chosen
+        background-image: none
+        background-color: $colors.main
+
+    &--real
+      background-color: $colors.main
+      background-repeat: repeat
+      background-size: 9px 100%
+
+      &.is-less
+        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, #9F9FA0 3.5px, #9F9FA0 5.5px, $colors.bg 5.5px)
+
+      &.is-more
+        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, $colors.main 3.5px, $colors.main 5.5px, $colors.bg 5.5px)
+
+  &-origin
+    position: absolute
+    z-index: 2
+    top: 0
+    left: 0
+    width: 100%
+    height: 0
+    transform-origin: 0 0
+    will-change: transform
+
+  &-handle
+    position: relative
+    width: 0
+    height: 0
+
+    &__tool
+      position: absolute
+      top: -8px
+      left: -10px
+      width: 20px
+      height: 20px
+      background-color: #fff
+      border-radius: 100%
+      cursor: grab
+
+      &:active
+        cursor: grabbing
+
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        bottom: 0
+        left: 0
+        right: 0
+        margin: auto
+        width: 14px
+        height: 14px
+        border: 1px solid $colors.extra
+        border-radius: 100%
+
+    &__tooltip
+      position: absolute
+      top: -42px
+      left: 50%
+      color: #fff
+      fontRobotoSlab()
+      font-size: 24px
+      line-height: 1
+      white-space: nowrap
+      transform: translate3d(-50%,0,0)
+
+  &-scale
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    width: 100%
+    height: 10px
+
+    & > span
+      position: absolute
+      top: 0
+      left: 0
+      width: 0
+
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 50%
+        width: 2px
+        height: 10px
+        background-color: #4D5159
+        transform: translate3d(-50%,0,0)
+
+      &[data-value]::after
+        content: attr(data-value)
+        width: auto
+        height: auto
+        margin-top: -2px
+        color: #4D5159
+        font-size: 14px
+        line-height: 1
+        background-color: transparent
+
+.tele2
+  position: relative
+  z-index: 99
+  width: 1060px
+  max-width: 100%
+  font-family: Roboto, sans-serif
+  font-size: 16px
+  line-height: normal
+  text-size-adjust: 100%
+  transition: opacity .2s
+
+  & *
+  & *:before
+  & *:after
+    box-sizing: border-box
+
+  svg
+    display block
+    fill currentColor
+    pointer-events none
+
+  & b
+    font-weight: 700
+
+  & button
+    font-family: inherit
+    outline: none
+    cursor: pointer
+    appearance: none
+
+  button&-btn
+  &-btn
+    min-width: 140px
+    height: 45px
+    padding: 0 10px 2px
+    margin: 0
+    color: #fff
+    fontRobotoSlab()
+    font-size: 18px
+    line-height: 1
+    border: 2px solid currentColor
+    border-radius: 5px
+    background-color: transparent
+    box-shadow: none
+    transition: color .2s
+
+    a&
+      display: inline-block
+      line-height: 40px
+      text-align: center
+
+    &:hover
+      color: $colors.main
+
+      @media $mq.notHover
+        color: #fff
+
+    &.is-disabled
+      color: #4D5159 !important
+
+  &__bg
+    position: fixed
+    z-index: 1
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    width: 100%
+    height: 100%
+    background-color: $colors.bg
+
+  &__main
+    position: relative
+    z-index: 2
+    width: 100%
+    min-height: 600px
+    border: 3px solid $colors.main
+    border-radius: 5px
+    background-color: $colors.bg
+    overflow: hidden
+
+    &.is-result
+      border: 0
+
+  &-logo
+    position: absolute
+    z-index: 1
+    top: 18px
+    right: 22px
+    display: block
+    border: 0 !important
+    transition: opacity .2s
+
+    &:hover
+      opacity: .6
+
+      @media $mq.notHover
+        opacity: 1
+
+  &-enter
+    position: relative
+    width: 500px
+    max-width: 100%
+    margin: 50px auto 0
+
+    &__img
+      position: absolute
+      top: 200px
+      right: 0
+
+    &__inner
+      position: relative
+      z-index: 1
+      width: 370px
+      max-width: 100%
+
+    &__headline
+      color: rgba(255,255,255,.3)
+      fontRobotoSlab()
+      font-size: 18px
+      line-height: 1
+      letter-spacing: .3em
+      text-transform: uppercase
+
+    &__title
+      margin-top: 20px
+      color: #fff
+      fontRobotoSlab()
+      font-size: 48px
+      line-height: 1
+
+    &__text
+      margin-top: 30px
+      color: #fff
+      font-size: 18px
+      line-height: 1.5em
+
+    &__btn
+      margin-top: 288px
+
+  &-test
+    position: relative
+
+    &__pages
+      position: absolute
+      top: 17px
+      left: 20px
+      width: 95px
+      height: 30px
+      color: #4D5159
+      fontRobotoSlab()
+      font-size: 18px
+      line-height: 26px
+      text-align: center
+      border: 2px solid currentColor
+      border-radius: 100px
+      user-select: none
+
+    &__inner
+      position: relative
+      width: 560px
+      max-width: 100%
+      min-height: 594px
+      padding: 80px 0 150px
+      margin: 0 auto
+
+    &__head
+      position: relative
+      width: 100%
+      height: 200px
+      display: flex
+      justify-content: center
+      align-items: center
+
+    &__spinner
+      width: 75px
+      height: 75px
+      color: $colors.main
+      animation: spin 1s steps(12) infinite
+
+    &__img
+      transition: filter .5s
+
+      &.is-preview
+        filter: grayscale(1)
+
+    &__body
+      margin-top: 40px
+
+    &__q
+      color: #fff
+      line-height: 1.5em
+
+    &__q-title
+      margin-top: 14px
+      fontRobotoSlab()
+
+    &__q-notice
+      margin-top: 10px
+      opacity: .4
+
+    &__answer
+      color: #fff
+      line-height: 1.5em
+
+    &__bottom
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 65px
+      display: flex
+      align-items: center
+      flex-wrap: wrap
+      width: 100%
+
+    &__slider
+      width: 400px
+      max-width: 100%
+      margin-right: 20px
+
+  &-result
+    width: 640px
+    max-width: 100%
+    margin: 0 auto
+
+    &__head
+      padding: 47px 43px 42px
+      text-align: center
+      border: 3px solid $colors.main
+      border-radius: 5px
+
+    &__result
+      color: #fff
+      fontRobotoSlab()
+
+    &__title
+      margin-top: 5px
+      color: $colors.extra
+      fontRobotoSlab()
+      font-size: 24px
+
+    &__out-of
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: 12px
+      margin-left: 20px
+
+      & > span
+        flex-shrink: 0
+        width: 40px
+        height: 40px
+        margin-left: -20px
+        border-radius: 100%
+        background-image: url(https://leonardo.osnova.io/4fd29d63-fe9f-5fe8-d760-57f8f9b89aa9/)
+        background-size: 40px
+        box-shadow: -5px 5px 10px rgba(31, 34, 41, .5)
+        overflow: hidden
+
+    &__share
+      display: flex
+      justify-content: center
+      margin-top: 20px
+      min-height: 44px
+
+    &__restart
+      display: inline-flex
+      align-items: center
+      margin-top: 30px
+      color: #fff
+      font-size: 18px
+      cursor: pointer
+      opacity: .5
+      transition: opacity .2s
+      user-select: none
+
+      & > span
+        margin-right: 8px
+
+      &:hover
+        opacity: 1
+
+        @media $mq.notHover
+          opacity: .5
+
+    &__bottom
+      margin-top: 20px
+      padding: 34px 48px 42px 57px
+      border: 3px solid #fff
+      border-radius: 5px
+
+    &__text
+      color: #fff
+      font-size: 18px
+      line-height: 1.5em
+
+    &__btn
+      margin-top: 32px
+
+  .likely
+    &--custom
+      display: flex
+
+    &__widget
+      flex-shrink: 0
+      display: flex
+      align-items: center
+      justify-content: center
+      min-width: 58px
+      height: 44px
+      color: #fff
+      border: 2px solid currentColor
+      border-radius: 5px
+      background-color: transparent
+      cursor: pointer
+
+      &:not(:last-child)
+        margin-right: 10px
+
+      &:hover
+        color: $colors.bg
+        background-color: #fff
+
+        @media $mq.notHover
+          color: #fff
+          background-color: transparent
+
+      @media $mq.notMobile
+        &--facebook
+          padding: 0 20px 0 8px
+
+    &__counter
+      display: none
+
+    &__icon
+      background-color: transparent
+
+      & svg
+        display: block
+        width: 24px
+        height: @width
+        fill: currentColor
+
+      &--vkontakte
+        & svg
+          width: 28px
+          height: @width
+
+      &--facebook
+
+        @media $mq.notMobile
+          margin-right: 6px
+
+    &__button
+      display: none
+      font-size: 18px
+      line-height: 1
+
+      @media $mq.notMobile
+        display: block
