@@ -911,7 +911,7 @@ var Special = function (_BaseSpecial) {
       EL.rResult.textContent = '\u042F \u0441\u043A\u0430\u0447\u0430\u043B ' + this.correctAnswers + '/' + _data2.default.questions.length + ' \u0444\u0430\u0439\u043B\u043E\u0432';
       EL.rTitle.textContent = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + this.traffic + ' \u0433\u0438\u0433\u0430\u0431\u0430\u0439\u0442';
       if (this.correctAnswers > 0) {
-        EL.rOutOf.innerHTML = '<span></span>' * this.correctAnswers;
+        EL.rOutOf.innerHTML = '<span></span>'.repeat(this.correctAnswers);
       } else {
         EL.rOutOf.innerHTML = '<span class="is-null"></span>';
       }
@@ -1325,6 +1325,10 @@ var Slider = function () {
       e.preventDefault();
       e.stopPropagation();
 
+      if (e.touches) {
+        e = e.touches[0];
+      }
+
       this.settings.currentX = e.clientX;
 
       if (this.settings.currentX < this.settings.minX || this.settings.currentX > this.settings.maxX) {
@@ -1387,6 +1391,7 @@ var Slider = function () {
   }, {
     key: 'reset',
     value: function reset() {
+      this.initEvents();
       this.el.handle.appendChild(this.el.handleTool);
       this.el.lineHope.classList.remove('is-chosen');
       this.el.lineReal.classList.remove('is-less');
@@ -1427,6 +1432,7 @@ var Slider = function () {
     value: function download(value, callback) {
       var _this = this;
 
+      this.destroyEvents();
       this.el.handle.removeChild(this.el.handleTool);
       this.el.lineHope.classList.add('is-chosen');
 
@@ -1509,6 +1515,14 @@ var Slider = function () {
       this.el.handleTool.addEventListener('touchstart', this.start);
 
       this.el.lines.addEventListener('click', this.clickHandler);
+    }
+  }, {
+    key: 'destroyEvents',
+    value: function destroyEvents() {
+      this.el.handleTool.removeEventListener('mousedown', this.start);
+      this.el.handleTool.removeEventListener('touchstart', this.start);
+
+      this.el.lines.removeEventListener('click', this.clickHandler);
     }
   }, {
     key: 'init',
