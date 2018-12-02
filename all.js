@@ -1398,6 +1398,11 @@ var Slider = function () {
       this.el.lineReal.classList.remove('is-more');
       this.el.lineReal.style = '';
 
+      this.el.handleTooltip.classList.remove('is-incorrect');
+
+      this.el.originReal.style.transform = 'translate3d(0,0,0)';
+      this.el.handleRealTooltip.textContent = '';
+
       this.setPosition(this.props.startValue);
     }
   }, {
@@ -1456,6 +1461,13 @@ var Slider = function () {
         this.el.lineReal.style.width = end * this.settings.step + '%';
       }
 
+      if (this.props.value !== value) {
+        this.el.handleTooltip.classList.add('is-incorrect');
+
+        this.el.originReal.style.transform = 'translate3d(' + value * this.settings.step + '%,0,0)';
+        this.el.handleRealTooltip.textContent = value;
+      }
+
       setTimeout(function () {
         callback(type, _this.props.value);
       }, 2000 * (value / this.props.max));
@@ -1483,6 +1495,11 @@ var Slider = function () {
         textContent: this.props.value + this.props.tooltipSuffix
       });
 
+      this.el.originReal = (0, _dom.makeElement)('div', this.props.clsPrefix + '-origin');
+
+      this.el.handleReal = (0, _dom.makeElement)('div', this.props.clsPrefix + '-handle');
+      this.el.handleRealTooltip = (0, _dom.makeElement)('div', [this.props.clsPrefix + '-handle__tooltip', this.props.clsPrefix + '-handle__tooltip--real']);
+
       this.el.scale = (0, _dom.makeElement)('div', this.props.clsPrefix + '-scale');
       this.el.scale.innerHTML += '<span data-value="' + this.props.min + '" style="left: 0"></span>';
       var offsetX = 0;
@@ -1500,8 +1517,13 @@ var Slider = function () {
 
       this.el.origin.appendChild(this.el.handle);
 
+      this.el.handleReal.appendChild(this.el.handleRealTooltip);
+
+      this.el.originReal.appendChild(this.el.handleReal);
+
       this.el.base.appendChild(this.el.lines);
       this.el.base.appendChild(this.el.origin);
+      this.el.base.appendChild(this.el.originReal);
 
       this.el.slider.appendChild(this.el.base);
       this.el.slider.appendChild(this.el.scale);
