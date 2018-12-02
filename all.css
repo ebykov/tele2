@@ -445,6 +445,8 @@ button.tele2-btn.is-disabled,
           animation: spin 1s steps(12) infinite;
 }
 .tele2-test__img {
+  max-width: 100%;
+  max-height: 100%;
   -webkit-transition: -webkit-filter 0.5s;
   transition: -webkit-filter 0.5s;
   transition: filter 0.5s;
