@@ -11,6 +11,212 @@
             transform: rotate(360deg);
   }
 }
+@-webkit-keyframes pinkLight {
+  35%, 45%, 100% {
+    fill: #d24b91;
+  }
+  30%, 40% {
+    fill: #4d5159;
+  }
+}
+@keyframes pinkLight {
+  35%, 45%, 100% {
+    fill: #d24b91;
+  }
+  30%, 40% {
+    fill: #4d5159;
+  }
+}
+@-webkit-keyframes flicker {
+  from {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.9;
+  }
+  6% {
+    opacity: 0.85;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  11% {
+    opacity: 0.922;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  14% {
+    opacity: 0.95;
+  }
+  16% {
+    opacity: 0.98;
+  }
+  17% {
+    opacity: 0.9;
+  }
+  19% {
+    opacity: 0.93;
+  }
+  20% {
+    opacity: 0.99;
+  }
+  24% {
+    opacity: 1;
+  }
+  26% {
+    opacity: 0.94;
+  }
+  28% {
+    opacity: 0.98;
+  }
+  37% {
+    opacity: 0.93;
+  }
+  38% {
+    opacity: 0.5;
+  }
+  39% {
+    opacity: 0.96;
+  }
+  42% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 0.97;
+  }
+  46% {
+    opacity: 0.94;
+  }
+  56% {
+    opacity: 0.9;
+  }
+  58% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.99;
+  }
+  68% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.95;
+  }
+  93% {
+    opacity: 0.93;
+  }
+  95% {
+    opacity: 0.95;
+  }
+  97% {
+    opacity: 0.93;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.9;
+  }
+  6% {
+    opacity: 0.85;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  11% {
+    opacity: 0.922;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  14% {
+    opacity: 0.95;
+  }
+  16% {
+    opacity: 0.98;
+  }
+  17% {
+    opacity: 0.9;
+  }
+  19% {
+    opacity: 0.93;
+  }
+  20% {
+    opacity: 0.99;
+  }
+  24% {
+    opacity: 1;
+  }
+  26% {
+    opacity: 0.94;
+  }
+  28% {
+    opacity: 0.98;
+  }
+  37% {
+    opacity: 0.93;
+  }
+  38% {
+    opacity: 0.5;
+  }
+  39% {
+    opacity: 0.96;
+  }
+  42% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 0.97;
+  }
+  46% {
+    opacity: 0.94;
+  }
+  56% {
+    opacity: 0.9;
+  }
+  58% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.99;
+  }
+  68% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.95;
+  }
+  93% {
+    opacity: 0.93;
+  }
+  95% {
+    opacity: 0.95;
+  }
+  97% {
+    opacity: 0.93;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .t2slider {
   position: relative;
   width: 100%;
@@ -455,18 +661,23 @@ button.tele2-btn.is-disabled,
           animation: spin 1s steps(12) infinite;
 }
 .tele2-test__img {
-  -webkit-transition: -webkit-filter 0.5s;
-  transition: -webkit-filter 0.5s;
-  transition: filter 0.5s;
-  transition: filter 0.5s, -webkit-filter 0.5s;
+  color: #4d5159;
 }
 .tele2-test__img > svg {
   max-width: 100%;
   max-height: 100%;
+  fill: currentColor;
 }
-.tele2-test__img.is-preview {
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
+.tele2-test__img.is-enable {
+  -webkit-animation: flicker 2s linear infinite;
+          animation: flicker 2s linear infinite;
+}
+.tele2-test__img.is-enable .neon-a {
+  fill: #00b9ff;
+}
+.tele2-test__img.is-enable .neon-b {
+  -webkit-animation: pinkLight 2s linear both;
+          animation: pinkLight 2s linear both;
 }
 .tele2-test__body {
   margin-top: 20px;
