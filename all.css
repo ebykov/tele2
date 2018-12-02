@@ -469,7 +469,12 @@ button.tele2-btn.is-disabled,
           filter: grayscale(1);
 }
 .tele2-test__body {
-  margin-top: 40px;
+  margin-top: 20px;
+}
+@media (min-width: 680px) {
+  .tele2-test__body {
+    margin-top: 40px;
+  }
 }
 .tele2-test__q {
   color: #fff;
