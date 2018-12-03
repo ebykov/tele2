@@ -733,7 +733,6 @@ button.tele2-btn.is-disabled,
 }
 .tele2-test__q-title {
   margin-top: 14px;
-  font-family: Roboto Slab, serif;
   font-weight: 700;
 }
 .tele2-test__q-notice {
@@ -745,7 +744,6 @@ button.tele2-btn.is-disabled,
   line-height: 1.5em;
 }
 .tele2-test__answer-title {
-  font-family: Roboto Slab, serif;
   font-weight: 700;
 }
 @media (min-width: 680px) {
