@@ -429,7 +429,7 @@ button.tele2-btn,
 .tele2-btn {
   min-width: 140px;
   height: 45px;
-  padding: 0 10px 2px;
+  padding: 0 25px 2px;
   margin: 0;
   color: #fff;
   font-family: Roboto Slab, serif;
@@ -441,8 +441,8 @@ button.tele2-btn,
   background-color: transparent;
   -webkit-box-shadow: none;
           box-shadow: none;
-  -webkit-transition: color 0.2s;
-  transition: color 0.2s;
+  -webkit-transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 }
 abutton.tele2-btn,
 a.tele2-btn {
@@ -458,6 +458,24 @@ button.tele2-btn:hover,
   button.tele2-btn:hover,
   .tele2-btn:hover {
     color: #fff;
+  }
+}
+button.tele2-btn.is-filled,
+.tele2-btn.is-filled {
+  color: #1f2229;
+  border-color: #fff;
+  background-color: #fff;
+}
+button.tele2-btn.is-filled:hover,
+.tele2-btn.is-filled:hover {
+  border-color: #d24b91;
+  background-color: #d24b91;
+}
+@media (hover none), (hover on-demand) {
+  button.tele2-btn.is-filled:hover,
+  .tele2-btn.is-filled:hover {
+    border-color: #fff;
+    background-color: #fff;
   }
 }
 button.tele2-btn.is-disabled,
@@ -537,7 +555,7 @@ button.tele2-btn.is-disabled,
 }
 .tele2-enter__img {
   position: absolute;
-  top: 135px;
+  top: 165px;
   right: 0;
 }
 .tele2-enter__img > svg {
@@ -550,6 +568,11 @@ button.tele2-btn.is-disabled,
 .tele2-enter__img.is-enable .neon-b {
   -webkit-animation: pinkLight 2s linear both;
           animation: pinkLight 2s linear both;
+}
+@media (min-width: 375px) {
+  .tele2-enter__img {
+    top: 180px;
+  }
 }
 @media (max-width: 679px) {
   .tele2-enter__img {
@@ -607,7 +630,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-enter__text {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 .tele2-enter__btn {
@@ -615,7 +638,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-enter__btn {
-    margin-top: 288px;
+    margin-top: 220px;
   }
 }
 .tele2-test {
@@ -656,7 +679,7 @@ button.tele2-btn.is-disabled,
 @media (min-width: 680px) {
   .tele2-test__inner {
     min-height: 594px;
-    padding: 80px 0 150px;
+    padding: 80px 0 145px;
   }
 }
 .tele2-test__head {
@@ -701,7 +724,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-test__body {
-    margin-top: 40px;
+    margin-top: 35px;
   }
 }
 .tele2-test__q {
@@ -720,6 +743,18 @@ button.tele2-btn.is-disabled,
 .tele2-test__answer {
   color: #fff;
   line-height: 1.5em;
+}
+.tele2-test__answer-title {
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+}
+@media (min-width: 680px) {
+  .tele2-test__answer-title {
+    font-size: 18px;
+  }
+}
+.tele2-test__answer-text {
+  margin-top: 10px;
 }
 .tele2-test__bottom {
   margin-top: 20px;
@@ -763,34 +798,17 @@ button.tele2-btn.is-disabled,
   }
 }
 .tele2-result {
+  position: relative;
   width: 640px;
   max-width: 100%;
   margin: 0 auto;
+  padding-top: 76px;
 }
-.tele2-result__head {
-  padding: 47px 10px 15px;
-  text-align: center;
-  border: 3px solid #d24b91;
-  border-radius: 5px;
-}
-@media (min-width: 680px) {
-  .tele2-result__head {
-    padding: 47px 43px 42px;
-  }
-}
-.tele2-result__result {
-  color: #fff;
-  font-family: Roboto Slab, serif;
-  font-weight: 700;
-}
-.tele2-result__title {
-  margin-top: 5px;
-  color: #00b9ff;
-  font-family: Roboto Slab, serif;
-  font-weight: 700;
-  font-size: 24px;
-}
-.tele2-result__out-of {
+.tele2-result__notice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -800,36 +818,68 @@ button.tele2-btn.is-disabled,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 12px;
-  margin-left: 20px;
+  height: 76px;
+  padding: 0 90px 0 10px;
+  color: #fff;
+  font-size: 14px;
 }
-.tele2-result__out-of > span {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  margin-left: -20px;
-  border-radius: 100%;
-  background-image: url("https://leonardo.osnova.io/4fd29d63-fe9f-5fe8-d760-57f8f9b89aa9/");
-  background-size: 40px;
-  -webkit-box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
-          box-shadow: -5px 5px 10px rgba(31,34,41,0.5);
-  overflow: hidden;
+.tele2-result__notice > div > span {
+  color: #00b9ff;
+  font-weight: 700;
 }
-.tele2-result__out-of > span.is-null {
-  width: 50px;
-  height: 50px;
-  background-image: url("https://leonardo.osnova.io/e6458909-c599-44c0-f3ff-91497b25feac/");
-  background-size: 50px;
+@media (min-width: 375px) {
+  .tele2-result__notice {
+    font-size: 16px;
+  }
+}
+@media (min-width: 900px) {
+  .tele2-result__notice {
+    padding: 0;
+  }
+}
+.tele2-result__head {
+  position: relative;
+  padding: 47px 10px 15px;
+  border: 3px solid #d24b91;
+  border-radius: 5px;
+}
+@media (min-width: 680px) {
+  .tele2-result__head {
+    padding: 47px 43px 42px;
+  }
+}
+.tele2-result__img {
+  position: absolute;
+  left: 330px;
+}
+@media (max-width: 560px) {
+  .tele2-result__img {
+    display: none;
+  }
+}
+@media (min-width: 667px) {
+  .tele2-result__img {
+    left: 400px;
+  }
+}
+.tele2-result__head-inner {
+  position: relative;
+  z-index: 1;
+}
+.tele2-result__title {
+  color: #00b9ff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 36px;
+}
+.tele2-result__caption {
+  margin-top: 8px;
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
 }
 .tele2-result__share {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-top: 20px;
+  margin-top: 25px;
   min-height: 44px;
 }
 .tele2-result__restart {
@@ -880,12 +930,10 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__btn {
   margin-top: 20px;
-  text-align: center;
 }
 @media (min-width: 680px) {
   .tele2-result__btn {
     margin-top: 32px;
-    text-align: left;
   }
 }
 .tele2 .likely--custom {
