@@ -835,6 +835,11 @@ var CSS = {
 
 var EL = {};
 
+function pluralize(count, words) {
+  var cases = [2, 0, 1, 1, 1, 2];
+  return count + "&nbsp;" + words[count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]];
+}
+
 var Special = function (_BaseSpecial) {
   _inherits(Special, _BaseSpecial);
 
@@ -913,7 +918,7 @@ var Special = function (_BaseSpecial) {
       this.main.appendChild(EL.result);
 
       EL.rImg.src = result.img;
-      EL.rNotice.innerHTML = '<div>\u0412\u0441\u0435 \u0444\u0430\u0439\u043B\u044B \u0442\u0435\u0441\u0442\u0430 \u0432\u0435\u0441\u0438\u043B\u0438 ' + this.filesSize + ' \u0433\u0438\u0433\u0430\u0431\u0430\u0439\u0442\u0430, \u0430 \u0432\u044B \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B\u0438 <span>' + this.traffic + '&nbsp;\u0433\u0438\u0433\u0430\u0431\u0430\u0439\u0442</span>.</div>';
+      EL.rNotice.innerHTML = '<div>\u0412\u0441\u0435 \u0444\u0430\u0439\u043B\u044B \u0442\u0435\u0441\u0442\u0430 \u0432\u0435\u0441\u0438\u043B\u0438 ' + pluralize(this.filesSize, ['гигабайт', 'гигабайта', 'гигабайт']) + ', \u0430 \u0432\u044B \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B\u0438 <span>' + pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт']) + '</span>.</div>';
       EL.rTitle.innerHTML = result.title;
       EL.rCaption.innerHTML = '\u0423\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u0441\u0451 \u0441\u043A\u0430\u0447\u0430\u0442\u044C \u0432 ' + this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0439';
 

@@ -782,6 +782,8 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-test__slider {
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
     width: 380px;
     max-width: 100%;
     margin: 0 40px 0 0;
