@@ -27,6 +27,22 @@
     fill: #4d5159;
   }
 }
+@-webkit-keyframes blueLight {
+  64%, 70%, 100% {
+    fill: #00b9ff;
+  }
+  0%, 60%, 65% {
+    fill: #4d5159;
+  }
+}
+@keyframes blueLight {
+  64%, 70%, 100% {
+    fill: #00b9ff;
+  }
+  0%, 60%, 65% {
+    fill: #4d5159;
+  }
+}
 @-webkit-keyframes flicker {
   from {
     opacity: 1;
@@ -254,19 +270,18 @@
   background-repeat: repeat;
   background-size: 9px 100%;
 }
-.t2slider-line--hope.is-chosen {
-  background-image: none;
+.t2slider-line--diff1 {
   background-color: #d24b91;
 }
-.t2slider-line--real {
+.t2slider-line--diff {
   background-color: #d24b91;
   background-repeat: repeat;
   background-size: 9px 100%;
 }
-.t2slider-line--real.is-less {
+.t2slider-line--diff.is-less {
   background-image: linear-gradient(45deg, #1f2229 0px, #1f2229 3.5px, #d24b91 3.5px, #d24b91 5.5px, #1f2229 5.5px);
 }
-.t2slider-line--real.is-more {
+.t2slider-line--diff.is-more {
   background-image: linear-gradient(45deg, #1f2229 0px, #1f2229 3.5px, #9f9fa0 3.5px, #9f9fa0 5.5px, #1f2229 5.5px);
 }
 .t2slider-origin {
@@ -378,7 +393,6 @@
   z-index: 99;
   width: 1060px;
   max-width: 100%;
-  padding: 0 5px;
   font-family: Roboto, sans-serif;
   font-size: 16px;
   line-height: normal;
@@ -388,11 +402,6 @@
           text-size-adjust: 100%;
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
-}
-@media (min-width: 1070px) {
-  .tele2 {
-    padding: 0;
-  }
 }
 .tele2 *,
 .tele2 *:before,
@@ -470,27 +479,27 @@ button.tele2-btn.is-disabled,
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 0 10px 10px;
-  border: 3px solid #d24b91;
-  border-radius: 5px;
+  padding: 0 15px 10px;
   background-color: #1f2229;
   overflow: hidden;
 }
 .tele2__main.is-result {
-  padding: 0;
+  padding: 0 5px;
   border: 0;
 }
 @media (min-width: 680px) {
   .tele2__main {
     min-height: 600px;
     padding: 0;
+    border: 3px solid #d24b91;
+    border-radius: 5px;
   }
 }
 .tele2-logo {
   position: absolute;
   z-index: 1;
   top: 10px;
-  right: 10px;
+  right: 15px;
   display: block;
   border: 0 !important;
   -webkit-transition: opacity 0.2s;
@@ -530,6 +539,17 @@ button.tele2-btn.is-disabled,
   position: absolute;
   top: 135px;
   right: 0;
+}
+.tele2-enter__img > svg {
+  fill: #4d5159;
+}
+.tele2-enter__img.is-enable .neon-a {
+  -webkit-animation: blueLight 3s linear both;
+          animation: blueLight 3s linear both;
+}
+.tele2-enter__img.is-enable .neon-b {
+  -webkit-animation: pinkLight 2s linear both;
+          animation: pinkLight 2s linear both;
 }
 @media (max-width: 679px) {
   .tele2-enter__img {
@@ -630,7 +650,7 @@ button.tele2-btn.is-disabled,
   position: relative;
   width: 560px;
   max-width: 100%;
-  padding: 60px 10px 0;
+  padding: 60px 0 0;
   margin: 0 auto;
 }
 @media (min-width: 680px) {
@@ -668,12 +688,9 @@ button.tele2-btn.is-disabled,
   max-height: 100%;
   fill: currentColor;
 }
-.tele2-test__img.is-enable {
-  -webkit-animation: flicker 2s linear infinite;
-          animation: flicker 2s linear infinite;
-}
 .tele2-test__img.is-enable .neon-a {
-  fill: #00b9ff;
+  -webkit-animation: blueLight 0.9s linear both;
+          animation: blueLight 0.9s linear both;
 }
 .tele2-test__img.is-enable .neon-b {
   -webkit-animation: pinkLight 2s linear both;
