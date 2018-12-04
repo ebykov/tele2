@@ -903,7 +903,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-result__img {
-    top: 30px;
+    top: 40px;
     left: 400px;
   }
 }
