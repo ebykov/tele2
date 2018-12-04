@@ -842,13 +842,32 @@ button.tele2-btn.is-disabled,
   width: 640px;
   max-width: 100%;
   margin: 0 auto;
-  padding-top: 76px;
 }
-.tele2-result__notice {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.tele2-result__head {
+  position: relative;
+  padding: 50px 20px 15px;
+  text-align: center;
+  border: 3px solid #d24b91;
+  border-radius: 5px;
+}
+@media (min-width: 680px) {
+  .tele2-result__head {
+    padding: 50px 40px 45px;
+  }
+}
+.tele2-result__title {
+  color: #00b9ff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+.tele2-result__caption {
+  margin-top: 8px;
+  color: #fff;
+  font-family: Roboto Slab, serif;
+  font-weight: 700;
+}
+.tele2-result__out-of {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -858,77 +877,36 @@ button.tele2-btn.is-disabled,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 76px;
-  padding: 0 90px 0 10px;
-  color: #fff;
-  font-size: 14px;
+  margin-top: 12px;
 }
-.tele2-result__notice > div > span {
-  color: #00b9ff;
-  font-weight: 700;
+.tele2-result__out-of > span {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: block;
+  width: 34px;
+  height: 32px;
+  margin: 0 2px;
+  background-image: url("https://leonardo.osnova.io/b325e0d5-d819-ece2-7c92-c3bff1c67257/");
+  background-position: 0 0;
+  background-size: cover;
 }
-@media (min-width: 375px) {
-  .tele2-result__notice {
-    font-size: 16px;
+@media (min-width: 480px) {
+  .tele2-result__out-of > span {
+    width: 42px;
+    height: 40px;
+    margin: 0 4px;
   }
 }
-@media (min-width: 900px) {
-  .tele2-result__notice {
-    padding: 0;
-  }
-}
-.tele2.is-feed .tele2-result__notice {
-  padding: 0 90px 0 10px;
-}
-.tele2-result__head {
-  position: relative;
-  padding: 15px 20px;
-  border: 3px solid #d24b91;
-  border-radius: 5px;
-}
-@media (min-width: 680px) {
-  .tele2-result__head {
-    padding: 35px 40px 40px;
-  }
-}
-.tele2-result__img {
-  position: absolute;
-  top: 20px;
-  left: 360px;
-}
-@media (max-width: 589px) {
-  .tele2-result__img {
-    display: none !important;
-  }
-}
-@media (min-width: 680px) {
-  .tele2-result__img {
-    top: 40px;
-    left: 400px;
-  }
-}
-.tele2-result__head-inner {
-  position: relative;
-  z-index: 1;
-}
-.tele2-result__title {
-  color: #00b9ff;
-  font-family: Roboto Slab, serif;
-  font-weight: 700;
-  font-size: 31px;
-}
-@media (min-width: 375px) {
-  .tele2-result__title {
-    font-size: 36px;
-  }
-}
-.tele2-result__caption {
-  margin-top: 8px;
-  color: #fff;
-  font-family: Roboto Slab, serif;
-  font-weight: 700;
+.tele2-result__out-of > span.is-filled {
+  background-image: url("https://leonardo.osnova.io/c241353d-ef49-6383-30ce-f5a6746c7266/");
 }
 .tele2-result__share {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 25px;
   min-height: 44px;
 }
@@ -970,7 +948,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-result__bottom {
-    padding: 40px;
+    padding: 40px 40px 45px;
   }
 }
 .tele2-result__text {

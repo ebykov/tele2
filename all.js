@@ -911,16 +911,23 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'result',
     value: function result() {
-      var result = Special.getResult(this.traffic / _data2.default.questions.length);
-
       this.main.classList.add('is-result');
       this.main.removeChild(EL.test);
       this.main.appendChild(EL.result);
 
-      EL.rImg.src = result.img;
-      EL.rNotice.innerHTML = '<div>\u0412\u0441\u0435 \u0444\u0430\u0439\u043B\u044B \u0442\u0435\u0441\u0442\u0430 \u0432\u0435\u0441\u0438\u043B\u0438 ' + pluralize(this.filesSize, ['гигабайт', 'гигабайта', 'гигабайт']) + ', \u0430 \u0432\u044B \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B\u0438 <span>' + pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт']) + '</span>.</div>';
-      EL.rTitle.innerHTML = result.title;
-      EL.rCaption.innerHTML = '\u0423\u0434\u0430\u043B\u043E\u0441\u044C \u0432\u0441\u0451 \u0441\u043A\u0430\u0447\u0430\u0442\u044C \u0432 ' + this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0439';
+      EL.rTitle.innerHTML = '\u042F \u0432\u0441\u0451 \u0441\u043A\u0430\u0447\u0430\u043B \u0432 ' + this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0439';
+      if (this.traffic > this.filesSize) {
+        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + pluralize(this.traffic - this.filesSize, ['лишних гигабайт', 'лишних гигабайта', 'лишних гигабайт']);
+      } else {
+        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт']);
+      }
+
+      EL.rOutOf.innerHTML = '';
+      if (this.correctAnswers > 0) {
+        EL.rOutOf.innerHTML += '<span class="is-filled"></span>'.repeat(this.correctAnswers);
+      }
+
+      EL.rOutOf.innerHTML += '<span></span>'.repeat(_data2.default.questions.length - this.correctAnswers);
 
       (0, _dom.removeChildren)(EL.rShare);
       Share.make(EL.rShare, {
@@ -1076,14 +1083,12 @@ var Special = function (_BaseSpecial) {
       EL.test.appendChild(EL.tInner);
 
       EL.result = (0, _dom.makeElement)('div', CSS.main + '-result');
-      EL.rNotice = (0, _dom.makeElement)('div', CSS.main + '-result__notice');
       EL.rHead = (0, _dom.makeElement)('div', CSS.main + '-result__head');
-      EL.rHeadInner = (0, _dom.makeElement)('div', CSS.main + '-result__head-inner');
       EL.rBottom = (0, _dom.makeElement)('div', CSS.main + '-result__bottom');
 
-      EL.rImg = (0, _dom.makeElement)('img', CSS.main + '-result__img');
       EL.rTitle = (0, _dom.makeElement)('div', CSS.main + '-result__title');
       EL.rCaption = (0, _dom.makeElement)('div', CSS.main + '-result__caption');
+      EL.rOutOf = (0, _dom.makeElement)('div', CSS.main + '-result__out-of');
       EL.rShare = (0, _dom.makeElement)('div', CSS.main + '-result__share');
       EL.rRestart = (0, _dom.makeElement)('div', CSS.main + '-result__restart', {
         innerHTML: '<span>\u041F\u0440\u043E\u0439\u0442\u0438 \u0435\u0449\u0435 \u0440\u0430\u0437</span>' + _svg2.default.refresh,
@@ -1103,34 +1108,17 @@ var Special = function (_BaseSpecial) {
 
       EL.rBtnWrap.appendChild(EL.rBtn);
 
-      EL.rHeadInner.appendChild(EL.rTitle);
-      EL.rHeadInner.appendChild(EL.rCaption);
-      EL.rHeadInner.appendChild(EL.rShare);
-      EL.rHeadInner.appendChild(EL.rRestart);
-
-      EL.rHead.appendChild(EL.rImg);
-      EL.rHead.appendChild(EL.rHeadInner);
+      EL.rHead.appendChild(EL.rTitle);
+      EL.rHead.appendChild(EL.rCaption);
+      EL.rHead.appendChild(EL.rOutOf);
+      EL.rHead.appendChild(EL.rShare);
+      EL.rHead.appendChild(EL.rRestart);
 
       EL.rBottom.appendChild(EL.rText);
       EL.rBottom.appendChild(EL.rBtnWrap);
 
-      EL.result.appendChild(EL.rNotice);
       EL.result.appendChild(EL.rHead);
       EL.result.appendChild(EL.rBottom);
-    }
-  }, {
-    key: 'getResult',
-    value: function getResult(score) {
-      var result = '';
-      _data2.default.results.some(function (item) {
-        if (item.range[0] <= score && item.range[1] >= score) {
-          result = item;
-          return true;
-        }
-        return false;
-      });
-
-      return result;
     }
   }]);
 
@@ -2696,28 +2684,7 @@ exports.default = {
   result: {
     text: 'Трафик заканчивается быстрее, чем кажется. Зато абоненты Tele2 могут поддержать друг друга, поделившись с друзьями и близкими гигабайтами.',
     link: 'https://msk.tele2.ru/promo/share-gb?utm_source=TJ&utm_medium=SP&utm_content=Test&utm_campaign=Tele2_8flight&utm_term='
-  },
-  results: [{
-    range: [0, 3.95],
-    title: 'Я — крохобор',
-    img: 'https://leonardo.osnova.io/d62c2294-f35c-d462-542c-24e533c0455e/'
-  }, {
-    range: [3.96, 4.45],
-    title: 'Я — жадина',
-    img: 'https://leonardo.osnova.io/6ff495dd-1db7-dbce-5af5-e46a06d6e565/'
-  }, {
-    range: [4.46, 4.95],
-    title: 'Я — ювелир',
-    img: 'https://leonardo.osnova.io/944b4d05-c3e8-6c4a-545b-4ff17b484abf/'
-  }, {
-    range: [4.96, 5.45],
-    title: 'Я — расточитель',
-    img: 'https://leonardo.osnova.io/1ae2f799-4d21-3b1d-9f9c-c8c793c0ec5c/'
-  }, {
-    range: [5.46, 100],
-    title: 'Я — транжира',
-    img: 'https://leonardo.osnova.io/f7435fca-caa6-5886-f16e-f87445582b75/'
-  }]
+  }
 };
 
 /***/ })
