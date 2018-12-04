@@ -1,14 +1,15 @@
 @import 'mq'
 @import 'functions'
-@import 'keyframes'
-
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:700');
+@import 'fonts'
 
 $colors = {
   main: #D24B91,
   extra: #00B9FF,
-  bg: #1F2229
+  bg: #1F2229,
+  gray: #4D5159,
 }
+
+@import 'keyframes'
 
 fontRobotoSlab(weight = 700)
   font-family: Roboto Slab, serif
@@ -25,7 +26,7 @@ fontRobotoSlab(weight = 700)
     z-index: 1
     width: 100%
     height: 5px
-    background-color: #4D5159
+    background-color: $colors.gray
     border-radius: 100px
 
   &-lines
@@ -48,20 +49,19 @@ fontRobotoSlab(weight = 700)
       background-repeat: repeat
       background-size: 9px 100%
 
-      &.is-chosen
-        background-image: none
-        background-color: $colors.main
+    &--diff1
+      background-color: $colors.main
 
-    &--real
+    &--diff
       background-color: $colors.main
       background-repeat: repeat
       background-size: 9px 100%
 
       &.is-less
-        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, #9F9FA0 3.5px, #9F9FA0 5.5px, $colors.bg 5.5px)
+        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, $colors.main 3.5px, $colors.main 5.5px, $colors.bg 5.5px)
 
       &.is-more
-        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, $colors.main 3.5px, $colors.main 5.5px, $colors.bg 5.5px)
+        background-image: linear-gradient(45deg, $colors.bg 0px, $colors.bg 3.5px, #9F9FA0 3.5px, #9F9FA0 5.5px, $colors.bg 5.5px)
 
   &-origin
     position: absolute
@@ -106,14 +106,24 @@ fontRobotoSlab(weight = 700)
 
     &__tooltip
       position: absolute
-      top: -42px
+      top: -25px
       left: 50%
       color: #fff
       fontRobotoSlab()
-      font-size: 24px
+      font-size: 14px
       line-height: 1
       white-space: nowrap
       transform: translate3d(-50%,0,0)
+
+      &--real
+        color: $colors.main
+
+      &.is-incorrect
+        color: #9F9FA0
+
+      @media $mq.notMobile
+        top: -42px
+        font-size: 18px
 
   &-scale
     position: absolute
@@ -136,7 +146,7 @@ fontRobotoSlab(weight = 700)
         left: 50%
         width: 2px
         height: 10px
-        background-color: #4D5159
+        background-color: $colors.gray
         transform: translate3d(-50%,0,0)
 
       &[data-value]::after
@@ -144,7 +154,7 @@ fontRobotoSlab(weight = 700)
         width: auto
         height: auto
         margin-top: -2px
-        color: #4D5159
+        color: $colors.gray
         font-size: 14px
         line-height: 1
         background-color: transparent
@@ -159,6 +169,10 @@ fontRobotoSlab(weight = 700)
   line-height: normal
   text-size-adjust: 100%
   transition: opacity .2s
+
+  &.is-feed
+    border-radius: 5px
+    overflow: hidden
 
   & *
   & *:before
@@ -183,7 +197,7 @@ fontRobotoSlab(weight = 700)
   &-btn
     min-width: 140px
     height: 45px
-    padding: 0 10px 2px
+    padding: 0 25px 2px
     margin: 0
     color: #fff
     fontRobotoSlab()
@@ -193,10 +207,12 @@ fontRobotoSlab(weight = 700)
     border-radius: 5px
     background-color: transparent
     box-shadow: none
-    transition: color .2s
+    transition: color .2s, border-color .2s, background-color .2s
 
     a&
       display: inline-block
+      color: #fff !important
+      border: 2px solid currentColor !important
       line-height: 40px
       text-align: center
 
@@ -206,8 +222,27 @@ fontRobotoSlab(weight = 700)
       @media $mq.notHover
         color: #fff
 
+    a&:hover
+      color: $colors.main !important
+
+      @media $mq.notHover
+        color: #fff !important
+
+    &.is-filled
+      color: $colors.bg
+      border-color: #fff
+      background-color: #fff
+
+      &:hover
+        border-color: $colors.main
+        background-color: $colors.main
+
+        @media $mq.notHover
+          border-color: #fff
+          background-color: #fff
+
     &.is-disabled
-      color: #4D5159 !important
+      color: $colors.gray !important
 
   &__bg
     position: fixed
@@ -220,27 +255,42 @@ fontRobotoSlab(weight = 700)
     height: 100%
     background-color: $colors.bg
 
+    ^[0].is-feed &
+      position: absolute
+
   &__main
     position: relative
     z-index: 2
     width: 100%
-    min-height: 600px
-    border: 3px solid $colors.main
-    border-radius: 5px
+    padding: 0 15px 10px
     background-color: $colors.bg
     overflow: hidden
 
     &.is-result
+      padding: 0 5px 5px
       border: 0
+
+    @media $mq.notMobile
+      min-height: 600px
+      padding: 0
+      border: 3px solid $colors.main
+      border-radius: 5px
 
   &-logo
     position: absolute
     z-index: 1
-    top: 18px
-    right: 22px
+    top: 10px
+    right: 15px
     display: block
     border: 0 !important
     transition: opacity .2s
+
+    @media $mq.notMobile
+      top: 18px
+      right: 22px
+
+    @media (min-width: 640px) and (max-width: 899px)
+      right: calc(((100% - 640px) / 2) + 15px)
 
     &:hover
       opacity: .6
@@ -252,12 +302,40 @@ fontRobotoSlab(weight = 700)
     position: relative
     width: 500px
     max-width: 100%
-    margin: 50px auto 0
+    margin: 21px auto 0
+
+    @media $mq.notMobile
+      margin-top: 50px
 
     &__img
       position: absolute
-      top: 200px
+      top: 165px
       right: 0
+
+      & > svg
+        fill: $colors.gray
+
+      &.is-enable
+
+        & .neon-a
+          animation: blueLight 3s linear both
+
+        & .neon-b
+          animation: pinkLight 2s linear both
+
+      @media $mq.iphone6
+        top: 180px
+
+      @media $mq.mobile
+        width: 284px
+        height: 164px
+
+        & > svg
+          width: 100%
+          height: 100%
+
+      @media $mq.notMobile
+        top: 200px
 
     &__inner
       position: relative
@@ -274,31 +352,56 @@ fontRobotoSlab(weight = 700)
       text-transform: uppercase
 
     &__title
-      margin-top: 20px
-      color: #fff
+      display: inline-block
+      margin-top: 10px
+      color: #fff !important
       fontRobotoSlab()
-      font-size: 48px
+      font-size: 24px
       line-height: 1
+      border: 0 !important
+      pointer-events: none
+
+      ^[0].is-feed &
+        pointer-events: initial
+        transition: opacity .2s
+
+        &:hover
+          opacity: .6
+
+          @media $mq.notHover
+            opacity: 1
+
+      @media $mq.notMobile
+        margin-top: 20px
+        font-size: 48px
 
     &__text
-      margin-top: 30px
+      margin-top: 10px
       color: #fff
-      font-size: 18px
       line-height: 1.5em
 
+      @media $mq.iphone6
+        font-size: 18px
+
+      @media $mq.notMobile
+        margin-top: 20px
+
     &__btn
-      margin-top: 288px
+      margin-top: 180px
+
+      @media $mq.notMobile
+        margin-top: 220px
 
   &-test
     position: relative
 
     &__pages
       position: absolute
-      top: 17px
-      left: 20px
+      top: 12px
+      left: 0
       width: 95px
       height: 30px
-      color: #4D5159
+      color: $colors.gray
       fontRobotoSlab()
       font-size: 18px
       line-height: 26px
@@ -307,13 +410,20 @@ fontRobotoSlab(weight = 700)
       border-radius: 100px
       user-select: none
 
+      @media $mq.notMobile
+        top: 17px
+        left: 20px
+
     &__inner
       position: relative
       width: 560px
       max-width: 100%
-      min-height: 594px
-      padding: 80px 0 150px
+      padding: 60px 0 0
       margin: 0 auto
+
+      @media $mq.notMobile
+        min-height: 594px
+        padding: 80px 0 145px
 
     &__head
       position: relative
@@ -330,13 +440,27 @@ fontRobotoSlab(weight = 700)
       animation: spin 1s steps(12) infinite
 
     &__img
-      transition: filter .5s
+      color: $colors.gray
 
-      &.is-preview
-        filter: grayscale(1)
+      & > svg
+        max-width: 100%
+        max-height: 100%
+        fill: currentColor
+
+      &.is-enable
+        //animation: flicker 2s linear infinite
+
+        & .neon-a
+          animation: blueLight .9s linear both
+
+        & .neon-b
+          animation: pinkLight 2s linear both
 
     &__body
-      margin-top: 40px
+      margin-top: 20px
+
+      @media $mq.notMobile
+        margin-top: 35px
 
     &__q
       color: #fff
@@ -344,7 +468,8 @@ fontRobotoSlab(weight = 700)
 
     &__q-title
       margin-top: 14px
-      fontRobotoSlab()
+      font-weight: 700
+      //fontRobotoSlab()
 
     &__q-notice
       margin-top: 10px
@@ -354,64 +479,121 @@ fontRobotoSlab(weight = 700)
       color: #fff
       line-height: 1.5em
 
+    &__answer-title
+      font-weight: 700
+      //fontRobotoSlab()
+
+      @media $mq.notMobile
+        font-size: 18px
+
+    &__answer-text
+      margin-top: 10px
+
     &__bottom
-      position: absolute
-      left: 0
-      right: 0
-      bottom: 65px
-      display: flex
-      align-items: center
-      flex-wrap: wrap
-      width: 100%
+      margin-top: 20px
+
+      @media $mq.notMobile
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 65px
+        display: flex
+        align-items: center
+        width: 100%
+        margin-top: 0
 
     &__slider
-      width: 400px
-      max-width: 100%
-      margin-right: 20px
+      width: 100%
+      max-width: 380px
+      margin: 0 auto
+
+      @media $mq.notMobile
+        flex-shrink: 0
+        width: 380px
+        max-width: 100%
+        margin: 0 40px 0 0
+
+    &__btn
+      margin-top: 20px
+      text-align: center
+
+      @media $mq.notMobile
+        margin-top: 0
+        text-align: right
 
   &-result
+    position: relative
     width: 640px
     max-width: 100%
     margin: 0 auto
+    padding-top: 76px
 
-    &__head
-      padding: 47px 43px 42px
-      text-align: center
-      border: 3px solid $colors.main
-      border-radius: 5px
-
-    &__result
-      color: #fff
-      fontRobotoSlab()
-
-    &__title
-      margin-top: 5px
-      color: $colors.extra
-      fontRobotoSlab()
-      font-size: 24px
-
-    &__out-of
+    &__notice
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
       display: flex
       justify-content: center
       align-items: center
-      margin-top: 12px
-      margin-left: 20px
+      height: 76px
+      padding: 0 90px 0 10px
+      color: #fff
+      font-size: 14px
 
-      & > span
-        flex-shrink: 0
-        width: 40px
-        height: 40px
-        margin-left: -20px
-        border-radius: 100%
-        background-image: url(https://leonardo.osnova.io/4fd29d63-fe9f-5fe8-d760-57f8f9b89aa9/)
-        background-size: 40px
-        box-shadow: -5px 5px 10px rgba(31, 34, 41, .5)
-        overflow: hidden
+      & > div > span
+        color: $colors.extra
+        font-weight: 700
+
+      @media $mq.iphone6
+        font-size: 16px
+
+      @media (min-width: 900px)
+        padding: 0
+
+      ^[0].is-feed &
+        padding: 0 90px 0 10px
+
+    &__head
+      position: relative
+      padding: 15px 20px
+      border: 3px solid $colors.main
+      border-radius: 5px
+
+      @media $mq.notMobile
+        padding: 35px 40px 40px
+
+    &__img
+      position: absolute
+      top: 20px
+      left: 360px
+
+      @media (max-width: 589px)
+        display: none !important
+
+      @media $mq.notMobile
+        top: 40px
+        left: 400px
+
+    &__head-inner
+      position: relative
+      z-index: 1
+
+    &__title
+      color: $colors.extra
+      fontRobotoSlab()
+      font-size: 31px
+
+      @media $mq.iphone6
+        font-size: 36px
+
+    &__caption
+      margin-top: 8px
+      color: #fff
+      fontRobotoSlab()
 
     &__share
-      display: flex
-      justify-content: center
-      margin-top: 20px
+      margin-top: 25px
       min-height: 44px
 
     &__restart
@@ -436,9 +618,12 @@ fontRobotoSlab(weight = 700)
 
     &__bottom
       margin-top: 20px
-      padding: 34px 48px 42px 57px
+      padding: 15px 20px 20px
       border: 3px solid #fff
       border-radius: 5px
+
+      @media $mq.notMobile
+        padding: 40px
 
     &__text
       color: #fff
@@ -446,7 +631,10 @@ fontRobotoSlab(weight = 700)
       line-height: 1.5em
 
     &__btn
-      margin-top: 32px
+      margin-top: 20px
+
+      @media $mq.notMobile
+        margin-top: 32px
 
   .likely
     &--custom

@@ -14,6 +14,11 @@ const CSS = {
 
 const EL = {};
 
+function pluralize(count, words) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return count + "&nbsp;" + words[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[Math.min(count % 10, 5)]];
+}
+
 class Special extends BaseSpecial {
   constructor(params = {}) {
     super();
@@ -50,10 +55,15 @@ class Special extends BaseSpecial {
     EL.qTitle = makeElement('div', `${CSS.main}-test__q-title`);
     EL.qNotice = makeElement('div', `${CSS.main}-test__q-notice`);
     EL.a = makeElement('div', `${CSS.main}-test__answer`);
+    EL.aTitle = makeElement('div', `${CSS.main}-test__answer-title`);
+    EL.aText = makeElement('div', `${CSS.main}-test__answer-text`);
 
     EL.q.appendChild(EL.qText);
     EL.q.appendChild(EL.qTitle);
     EL.q.appendChild(EL.qNotice);
+
+    EL.a.appendChild(EL.aTitle);
+    EL.a.appendChild(EL.aText);
 
     EL.tBottom = makeElement('div', `${CSS.main}-test__bottom`);
     EL.tSliderWrap = makeElement('div', `${CSS.main}-test__slider`);
@@ -78,12 +88,14 @@ class Special extends BaseSpecial {
     EL.test.appendChild(EL.tInner);
 
     EL.result = makeElement('div', `${CSS.main}-result`);
+    EL.rNotice = makeElement('div', `${CSS.main}-result__notice`);
     EL.rHead = makeElement('div', `${CSS.main}-result__head`);
+    EL.rHeadInner = makeElement('div', `${CSS.main}-result__head-inner`);
     EL.rBottom = makeElement('div', `${CSS.main}-result__bottom`);
 
-    EL.rResult = makeElement('div', `${CSS.main}-result__result`);
+    EL.rImg = makeElement('img', `${CSS.main}-result__img`);
     EL.rTitle = makeElement('div', `${CSS.main}-result__title`);
-    EL.rOutOf = makeElement('div', `${CSS.main}-result__out-of`);
+    EL.rCaption = makeElement('div', `${CSS.main}-result__caption`);
     EL.rShare = makeElement('div', `${CSS.main}-result__share`);
     EL.rRestart = makeElement('div', `${CSS.main}-result__restart`, {
       innerHTML: `<span>Пройти еще раз</span>${Svg.refresh}`,
@@ -98,22 +110,38 @@ class Special extends BaseSpecial {
     EL.rBtn = makeElement('a', `${CSS.main}-btn`, {
       href: Data.result.link,
       target: '_blank',
-      textContent: 'Кнопка',
+      textContent: 'Как это работает',
     });
 
     EL.rBtnWrap.appendChild(EL.rBtn);
 
-    EL.rHead.appendChild(EL.rResult);
-    EL.rHead.appendChild(EL.rTitle);
-    EL.rHead.appendChild(EL.rOutOf);
-    EL.rHead.appendChild(EL.rShare);
-    EL.rHead.appendChild(EL.rRestart);
+    EL.rHeadInner.appendChild(EL.rTitle);
+    EL.rHeadInner.appendChild(EL.rCaption);
+    EL.rHeadInner.appendChild(EL.rShare);
+    EL.rHeadInner.appendChild(EL.rRestart);
+
+    EL.rHead.appendChild(EL.rImg);
+    EL.rHead.appendChild(EL.rHeadInner);
 
     EL.rBottom.appendChild(EL.rText);
     EL.rBottom.appendChild(EL.rBtnWrap);
 
+    EL.result.appendChild(EL.rNotice);
     EL.result.appendChild(EL.rHead);
     EL.result.appendChild(EL.rBottom);
+  }
+
+  static getResult(score) {
+    let result = '';
+    Data.results.some((item) => {
+      if (item.range[0] <= score && item.range[1] >= score) {
+        result = item;
+        return true;
+      }
+      return false;
+    });
+
+    return result;
   }
 
   start() {
@@ -137,6 +165,7 @@ class Special extends BaseSpecial {
     this.main.appendChild(EL.test);
 
     this.slider.reset();
+    EL.tBtn.classList.remove('is-filled');
     EL.tBtn.textContent = 'Скачать';
     EL.tBtn.dataset.click = 'download';
     this.makeNextQuestion();
@@ -145,22 +174,23 @@ class Special extends BaseSpecial {
   continue() {
     this.activeIndex += 1;
     this.slider.reset();
+    EL.tBtn.classList.remove('is-filled');
     EL.tBtn.textContent = 'Скачать';
     EL.tBtn.dataset.click = 'download';
     this.makeNextQuestion();
   }
 
   result() {
+    const result = Special.getResult(this.traffic / Data.questions.length);
+
     this.main.classList.add('is-result');
     this.main.removeChild(EL.test);
     this.main.appendChild(EL.result);
 
-    EL.rResult.textContent = `Я скачал ${this.correctAnswers}/${Data.questions.length} файлов`;
-    EL.rTitle.textContent = `И потратил ${this.traffic} гигабайт`;
-    EL.rOutOf.innerHTML = [...Array(this.traffic)].reduce((prev, curr) => {
-      prev += '<span></span>';
-      return prev;
-    }, '<span></span>');
+    EL.rImg.src = result.img;
+    EL.rNotice.innerHTML = `<div>Все файлы теста весили ${pluralize(this.filesSize, ['гигабайт', 'гигабайта', 'гигабайт'])}, а вы потратили <span>${pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт'])}</span>.</div>`;
+    EL.rTitle.innerHTML = result.title;
+    EL.rCaption.innerHTML = `Удалось всё скачать в ${this.correctAnswers} из ${Data.questions.length} ситуаций`;
 
     removeChildren(EL.rShare);
     Share.make(EL.rShare, {
@@ -180,7 +210,7 @@ class Special extends BaseSpecial {
     removeChildren(EL.tHead);
     EL.tHead.appendChild(EL.tImg);
 
-    EL.tImg.classList.add('is-preview');
+    EL.tImg.classList.remove('is-enable');
     EL.tImg.innerHTML = q.img;
     EL.qText.textContent = q.text;
     EL.qTitle.textContent = q.title;
@@ -213,20 +243,23 @@ class Special extends BaseSpecial {
     EL.tHead.appendChild(EL.tImg);
 
     setTimeout(() => {
-      EL.tImg.classList.remove('is-preview');
+      EL.tImg.classList.add('is-enable');
     }, 100);
 
-    EL.a.innerHTML = q.answer[type];
+    EL.aTitle.innerHTML = q.answer[type].title;
+    EL.aText.innerHTML = q.answer[type].text;
 
     removeChildren(EL.tBody);
     EL.tBody.appendChild(EL.a);
 
     this.traffic += chosenSize;
+    this.filesSize += q.size;
     if (type === 'correct' || type === 'more') {
       this.correctAnswers += 1;
     }
 
     EL.tBtn.classList.remove('is-disabled');
+    EL.tBtn.classList.add('is-filled');
     if (this.activeIndex < Data.questions.length - 1) {
       EL.tBtn.textContent = 'Далее';
       EL.tBtn.dataset.click = 'continue';
@@ -240,13 +273,20 @@ class Special extends BaseSpecial {
     this.activeIndex = 0;
     this.correctAnswers = 0;
     this.traffic = 0;
+    this.filesSize = 0;
   }
 
   init() {
     this.setInitialParams();
+    if (this.params.isFeed) {
+      this.container.classList.add('is-feed');
+    }
     this.container.style.opacity = '1';
     this.main = this.container.querySelector('#tele2-special-main');
     this.enter = this.main.querySelector('#tele2-special-enter');
+    this.enterImg = this.main.querySelector('#tele2-special-enter-img');
+
+    this.enterImg.classList.add('is-enable');
 
     Special.createElements();
   }

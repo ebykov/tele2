@@ -10,7 +10,7 @@ export default class Slider {
         min: 0,
         max: 10,
         value: 0,
-        startValue: 4,
+        startValue: 0,
       },
       ...props,
     };
@@ -23,6 +23,7 @@ export default class Slider {
     this.start = this.start.bind(this);
     this.move = this.move.bind(this);
     this.stop = this.stop.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
 
     this.init();
   }
@@ -55,11 +56,21 @@ export default class Slider {
     e.preventDefault();
     e.stopPropagation();
 
+    if (e.touches) {
+      e = e.touches[0];
+    }
+
     this.settings.currentX = e.clientX;
 
-    if (this.settings.currentX < this.settings.minX
-      || this.settings.currentX > this.settings.maxX) {
-      return;
+    // if (this.settings.currentX < this.settings.minX
+    //   || this.settings.currentX > this.settings.maxX) {
+    //   return;
+    // }
+
+    if (this.settings.currentX < this.settings.minX) {
+      this.settings.currentX = this.settings.minX;
+    } else if (this.settings.currentX > this.settings.maxX) {
+      this.settings.currentX = this.settings.maxX;
     }
 
     if (this.settings.currentX
@@ -69,7 +80,15 @@ export default class Slider {
       return;
     }
 
-    const direction = (this.settings.prevX - this.settings.currentX) > 0 ? 'left' : 'right';
+    let direction = null;
+    if ((this.settings.prevX - this.settings.currentX) > 0) {
+      direction = 'left';
+    } else if ((this.settings.prevX - this.settings.currentX) < 0) {
+      direction = 'right';
+    } else {
+      return;
+    }
+
     const value = direction === 'left' ? this.props.value - 1 : this.props.value + 1;
 
     this.settings.prevX = this.settings.currentX;
@@ -87,17 +106,59 @@ export default class Slider {
     document.removeEventListener('touchcancel', this.stop);
   }
 
+  clickHandler(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.touches) {
+      e = e.touches[0];
+    }
+
+    const x = e.clientX;
+    const rect = this.el.lines.getBoundingClientRect();
+    const minX = rect.x;
+    const step = this.el.base.offsetWidth / this.props.max;
+    let prevPoint = minX;
+    let currPoint = prevPoint;
+
+    for (let i = 0; i < this.props.max; i++) {
+      currPoint += step;
+
+
+      if (Math.abs(prevPoint - x) < Math.abs(currPoint - x)) {
+        this.setPosition(i);
+        return;
+      } else if (i === this.props.max - 1) {
+        this.setPosition(this.props.max);
+        return;
+      }
+
+      prevPoint = currPoint;
+    }
+  }
+
   reset() {
+    this.initEvents();
     this.el.handle.appendChild(this.el.handleTool);
-    this.el.lineHope.classList.remove('is-chosen');
-    this.el.lineReal.classList.remove('is-less');
-    this.el.lineReal.classList.remove('is-more');
-    this.el.lineReal.style = '';
+    this.el.lineDiff1.style = '';
+
+    this.el.lineDiff.classList.remove('is-less');
+    this.el.lineDiff.classList.remove('is-more');
+    this.el.lineDiff.style = '';
+
+    this.el.handleTooltip.classList.remove('is-incorrect');
+
+    this.el.originReal.style.transform = 'translate3d(0,0,0)';
+    this.el.handleRealTooltip.textContent = '';
 
     this.setPosition(this.props.startValue);
   }
 
   setPosition(value) {
+    if (value === this.props.value) {
+      return;
+    }
+
     if (value < this.props.min) {
       this.props.value = this.props.min;
     } else if (value > this.props.max) {
@@ -106,7 +167,12 @@ export default class Slider {
       this.props.value = value;
     }
 
-    const shift = this.settings.step * value;
+    let shift = this.settings.step * value;
+    if (shift < 0) {
+      shift = 0;
+    } else if (shift > 100) {
+      shift = 100;
+    }
 
     this.el.lineHope.style.width = `${this.props.value * this.settings.step}%`;
 
@@ -115,32 +181,51 @@ export default class Slider {
   }
 
   download(value, callback) {
+    this.destroyEvents();
     this.el.handle.removeChild(this.el.handleTool);
-    this.el.lineHope.classList.add('is-chosen');
 
     let type = 'correct';
-    let start = 0;
-    let end = value;
+    let start1 = 0;
+    let end1 = value;
+    let start2 = 0;
+    let end2 = 0;
+    const delay = 2000 * (value / this.props.max);
 
     if (this.props.value < value) {
       type = 'less';
-      start = this.props.value;
-      end = value - this.props.value;
-      this.el.lineReal.classList.add('is-less');
-      this.el.lineReal.style.left = `${start * this.settings.step}%`;
-      this.el.lineReal.style.width = `${end * this.settings.step}%`;
+      start2 = this.props.value;
+      end2 = value - this.props.value;
+      end1 -= end2;
+      this.el.lineDiff.classList.add('is-less');
+      this.el.lineDiff.style.left = `${start2 * this.settings.step}%`;
     } else if (this.props.value > value) {
       type = 'more';
-      start = value;
-      end = this.props.value - start;
-      this.el.lineReal.classList.add('is-more');
-      this.el.lineReal.style.left = `${start * this.settings.step}%`;
-      this.el.lineReal.style.width = `${end * this.settings.step}%`;
+      start2 = value;
+      end2 = this.props.value - start2;
+      this.el.lineDiff.classList.add('is-more');
+      this.el.lineDiff.style.left = `${start2 * this.settings.step}%`;
+    }
+
+    const coeff = end1 / (end1 + end2);
+    const dur1 = delay * coeff;
+    const dur2 = delay - dur1;
+
+    this.el.lineDiff1.style.transition = `width ${dur1}ms linear`;
+    this.el.lineDiff1.style.width = `${end1 * this.settings.step}%`;
+
+    this.el.lineDiff.style.transition = `width ${dur2}ms ${dur1}ms linear`;
+    this.el.lineDiff.style.width = `${end2 * this.settings.step}%`;
+
+    if (this.props.value !== value) {
+      this.el.handleTooltip.classList.add('is-incorrect');
+
+      this.el.originReal.style.transform = `translate3d(${value * this.settings.step}%,0,0)`;
+      this.el.handleRealTooltip.textContent = value;
     }
 
     setTimeout(() => {
       callback(type, this.props.value);
-    }, 2000 * (value / this.props.max));
+    }, delay);
   }
 
   makeElements() {
@@ -152,7 +237,8 @@ export default class Slider {
     this.el.lines = makeElement('div', `${this.props.clsPrefix}-lines`);
 
     this.el.lineHope = makeElement('div', [`${this.props.clsPrefix}-line`, `${this.props.clsPrefix}-line--hope`]);
-    this.el.lineReal = makeElement('div', [`${this.props.clsPrefix}-line`, `${this.props.clsPrefix}-line--real`]);
+    this.el.lineDiff1 = makeElement('div', [`${this.props.clsPrefix}-line`, `${this.props.clsPrefix}-line--diff1`]);
+    this.el.lineDiff = makeElement('div', [`${this.props.clsPrefix}-line`, `${this.props.clsPrefix}-line--diff`]);
 
     this.el.origin = makeElement('div', `${this.props.clsPrefix}-origin`);
 
@@ -161,6 +247,11 @@ export default class Slider {
     this.el.handleTooltip = makeElement('div', `${this.props.clsPrefix}-handle__tooltip`, {
       textContent: this.props.value + this.props.tooltipSuffix,
     });
+
+    this.el.originReal = makeElement('div', `${this.props.clsPrefix}-origin`);
+
+    this.el.handleReal = makeElement('div', `${this.props.clsPrefix}-handle`);
+    this.el.handleRealTooltip = makeElement('div', [`${this.props.clsPrefix}-handle__tooltip`, `${this.props.clsPrefix}-handle__tooltip--real`]);
 
     this.el.scale = makeElement('div', `${this.props.clsPrefix}-scale`);
     this.el.scale.innerHTML += `<span data-value="${this.props.min}" style="left: 0"></span>`;
@@ -172,15 +263,21 @@ export default class Slider {
     this.el.scale.innerHTML += `<span data-value="${this.props.max}" style="left: 100%"></span>`;
 
     this.el.lines.appendChild(this.el.lineHope);
-    this.el.lines.appendChild(this.el.lineReal);
+    this.el.lines.appendChild(this.el.lineDiff1);
+    this.el.lines.appendChild(this.el.lineDiff);
 
     this.el.handle.appendChild(this.el.handleTool);
     this.el.handle.appendChild(this.el.handleTooltip);
 
     this.el.origin.appendChild(this.el.handle);
 
+    this.el.handleReal.appendChild(this.el.handleRealTooltip);
+
+    this.el.originReal.appendChild(this.el.handleReal);
+
     this.el.base.appendChild(this.el.lines);
     this.el.base.appendChild(this.el.origin);
+    this.el.base.appendChild(this.el.originReal);
 
     this.el.slider.appendChild(this.el.base);
     this.el.slider.appendChild(this.el.scale);
@@ -191,6 +288,15 @@ export default class Slider {
   initEvents() {
     this.el.handleTool.addEventListener('mousedown', this.start);
     this.el.handleTool.addEventListener('touchstart', this.start);
+
+    this.el.lines.addEventListener('click', this.clickHandler);
+  }
+
+  destroyEvents() {
+    this.el.handleTool.removeEventListener('mousedown', this.start);
+    this.el.handleTool.removeEventListener('touchstart', this.start);
+
+    this.el.lines.removeEventListener('click', this.clickHandler);
   }
 
   init() {
