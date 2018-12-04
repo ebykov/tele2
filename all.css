@@ -1,4 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:700);
+@font-face {
+  font-family: 'Roboto Slab';
+  src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url("fonts/RobotoSlab/Bold.ttf") format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
 @-webkit-keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
@@ -403,6 +408,10 @@
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
+.tele2.is-feed {
+  border-radius: 5px;
+  overflow: hidden;
+}
 .tele2 *,
 .tele2 *:before,
 .tele2 *:after {
@@ -447,6 +456,8 @@ button.tele2-btn,
 abutton.tele2-btn,
 a.tele2-btn {
   display: inline-block;
+  color: #fff !important;
+  border: 2px solid currentColor !important;
   line-height: 40px;
   text-align: center;
 }
@@ -454,10 +465,20 @@ button.tele2-btn:hover,
 .tele2-btn:hover {
   color: #d24b91;
 }
-@media (hover none), (hover on-demand) {
+@media (hover: none), (hover: on-demand) {
   button.tele2-btn:hover,
   .tele2-btn:hover {
     color: #fff;
+  }
+}
+abutton.tele2-btn:hover,
+a.tele2-btn:hover {
+  color: #d24b91 !important;
+}
+@media (hover: none), (hover: on-demand) {
+  abutton.tele2-btn:hover,
+  a.tele2-btn:hover {
+    color: #fff !important;
   }
 }
 button.tele2-btn.is-filled,
@@ -471,7 +492,7 @@ button.tele2-btn.is-filled:hover,
   border-color: #d24b91;
   background-color: #d24b91;
 }
-@media (hover none), (hover on-demand) {
+@media (hover: none), (hover: on-demand) {
   button.tele2-btn.is-filled:hover,
   .tele2-btn.is-filled:hover {
     border-color: #fff;
@@ -493,6 +514,9 @@ button.tele2-btn.is-disabled,
   height: 100%;
   background-color: #1f2229;
 }
+.tele2.is-feed .tele2__bg {
+  position: absolute;
+}
 .tele2__main {
   position: relative;
   z-index: 2;
@@ -502,7 +526,7 @@ button.tele2-btn.is-disabled,
   overflow: hidden;
 }
 .tele2__main.is-result {
-  padding: 0 5px;
+  padding: 0 5px 5px;
   border: 0;
 }
 @media (min-width: 680px) {
@@ -537,7 +561,7 @@ button.tele2-btn.is-disabled,
 .tele2-logo:hover {
   opacity: 0.6;
 }
-@media (hover none), (hover on-demand) {
+@media (hover: none), (hover: on-demand) {
   .tele2-logo:hover {
     opacity: 1;
   }
@@ -605,12 +629,28 @@ button.tele2-btn.is-disabled,
   text-transform: uppercase;
 }
 .tele2-enter__title {
+  display: inline-block;
   margin-top: 10px;
-  color: #fff;
+  color: #fff !important;
   font-family: Roboto Slab, serif;
   font-weight: 700;
   font-size: 24px;
   line-height: 1;
+  border: 0 !important;
+  pointer-events: none;
+}
+.tele2.is-feed .tele2-enter__title {
+  pointer-events: initial;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.tele2.is-feed .tele2-enter__title:hover {
+  opacity: 0.6;
+}
+@media (hover: none), (hover: on-demand) {
+  .tele2.is-feed .tele2-enter__title:hover {
+    opacity: 1;
+  }
 }
 @media (min-width: 680px) {
   .tele2-enter__title {
@@ -837,28 +877,33 @@ button.tele2-btn.is-disabled,
     padding: 0;
   }
 }
+.tele2.is-feed .tele2-result__notice {
+  padding: 0 90px 0 10px;
+}
 .tele2-result__head {
   position: relative;
-  padding: 47px 10px 15px;
+  padding: 15px 20px;
   border: 3px solid #d24b91;
   border-radius: 5px;
 }
 @media (min-width: 680px) {
   .tele2-result__head {
-    padding: 47px 43px 42px;
+    padding: 35px 40px 40px;
   }
 }
 .tele2-result__img {
   position: absolute;
-  left: 330px;
+  top: 20px;
+  left: 360px;
 }
-@media (max-width: 560px) {
+@media (max-width: 589px) {
   .tele2-result__img {
-    display: none;
+    display: none !important;
   }
 }
-@media (min-width: 667px) {
+@media (min-width: 680px) {
   .tele2-result__img {
+    top: 30px;
     left: 400px;
   }
 }
@@ -870,7 +915,12 @@ button.tele2-btn.is-disabled,
   color: #00b9ff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
-  font-size: 36px;
+  font-size: 31px;
+}
+@media (min-width: 375px) {
+  .tele2-result__title {
+    font-size: 36px;
+  }
 }
 .tele2-result__caption {
   margin-top: 8px;
@@ -907,20 +957,20 @@ button.tele2-btn.is-disabled,
 .tele2-result__restart:hover {
   opacity: 1;
 }
-@media (hover none), (hover on-demand) {
+@media (hover: none), (hover: on-demand) {
   .tele2-result__restart:hover {
     opacity: 0.5;
   }
 }
 .tele2-result__bottom {
   margin-top: 20px;
-  padding: 15px 20px;
+  padding: 15px 20px 20px;
   border: 3px solid #fff;
   border-radius: 5px;
 }
 @media (min-width: 680px) {
   .tele2-result__bottom {
-    padding: 34px 48px 42px 57px;
+    padding: 40px;
   }
 }
 .tele2-result__text {
@@ -968,7 +1018,7 @@ button.tele2-btn.is-disabled,
   color: #1f2229;
   background-color: #fff;
 }
-@media (hover none), (hover on-demand) {
+@media (hover: none), (hover: on-demand) {
   .tele2 .likely__widget:hover {
     color: #fff;
     background-color: transparent;
