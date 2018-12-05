@@ -1306,7 +1306,7 @@ var Slider = function () {
       min: 0,
       max: 10,
       value: 0,
-      startValue: 0
+      startValue: 5
     }, props);
 
     this.settings = {

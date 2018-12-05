@@ -589,7 +589,7 @@ button.tele2-btn.is-disabled,
   position: relative;
   width: 500px;
   max-width: 100%;
-  margin: 21px auto 0;
+  margin: 11px auto 0;
 }
 @media (min-width: 680px) {
   .tele2-enter {
@@ -705,7 +705,7 @@ button.tele2-btn.is-disabled,
 }
 .tele2-test__pages {
   position: absolute;
-  top: 12px;
+  top: 7px;
   left: 0;
   width: 95px;
   height: 30px;
@@ -864,7 +864,7 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__head {
   position: relative;
-  padding: 30px 10px 15px;
+  padding: 30px 10px 10px;
   text-align: center;
   border: 3px solid #d24b91;
   border-radius: 5px;
@@ -992,7 +992,7 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__bottom {
   margin-top: 5px;
-  padding: 15px 10px 20px;
+  padding: 10px 10px 15px;
   border: 3px solid #fff;
   border-radius: 5px;
 }
@@ -1009,9 +1009,15 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__text {
   color: #fff;
+  font-size: 15px;
   line-height: 1.5em;
 }
 @media (min-width: 375px) {
+  .tele2-result__text {
+    font-size: 16px;
+  }
+}
+@media (min-width: 680px) {
   .tele2-result__text {
     font-size: 18px;
   }
