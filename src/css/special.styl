@@ -526,73 +526,54 @@ fontRobotoSlab(weight = 700)
     width: 640px
     max-width: 100%
     margin: 0 auto
-    padding-top: 76px
-
-    &__notice
-      position: absolute
-      top: 0
-      left: 0
-      right: 0
-      display: flex
-      justify-content: center
-      align-items: center
-      height: 76px
-      padding: 0 90px 0 10px
-      color: #fff
-      font-size: 14px
-
-      & > div > span
-        color: $colors.extra
-        font-weight: 700
-
-      @media $mq.iphone6
-        font-size: 16px
-
-      @media (min-width: 900px)
-        padding: 0
-
-      ^[0].is-feed &
-        padding: 0 90px 0 10px
 
     &__head
       position: relative
-      padding: 15px 20px
+      padding: 50px 20px 15px
+      text-align: center
       border: 3px solid $colors.main
       border-radius: 5px
 
       @media $mq.notMobile
-        padding: 35px 40px 40px
-
-    &__img
-      position: absolute
-      top: 20px
-      left: 360px
-
-      @media (max-width: 589px)
-        display: none !important
-
-      @media $mq.notMobile
-        top: 40px
-        left: 400px
-
-    &__head-inner
-      position: relative
-      z-index: 1
+        padding: 50px 40px 45px
 
     &__title
       color: $colors.extra
       fontRobotoSlab()
-      font-size: 31px
-
-      @media $mq.iphone6
-        font-size: 36px
+      font-size: 24px
 
     &__caption
       margin-top: 8px
       color: #fff
       fontRobotoSlab()
 
+    &__out-of
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: 12px
+
+      & > span
+        flex-shrink: 0
+        display: block
+        width: 34px
+        height: 32px
+        margin: 0 2px
+        background-image: url('https://leonardo.osnova.io/b325e0d5-d819-ece2-7c92-c3bff1c67257/')
+        background-position: 0 0
+        background-size: cover
+
+        @media (min-width: 480px)
+          width: 42px
+          height: 40px
+          margin: 0 4px
+
+        &.is-filled
+          background-image: url('https://leonardo.osnova.io/c241353d-ef49-6383-30ce-f5a6746c7266/')
+
     &__share
+      display: flex
+      justify-content: center
       margin-top: 25px
       min-height: 44px
 
@@ -623,7 +604,7 @@ fontRobotoSlab(weight = 700)
       border-radius: 5px
 
       @media $mq.notMobile
-        padding: 40px
+        padding: 40px 40px 45px
 
     &__text
       color: #fff

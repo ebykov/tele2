@@ -144,25 +144,4 @@ export default {
     text: 'Трафик заканчивается быстрее, чем кажется. Зато абоненты Tele2 могут поддержать друг друга, поделившись с друзьями и близкими гигабайтами.',
     link: 'https://msk.tele2.ru/promo/share-gb?utm_source=TJ&utm_medium=SP&utm_content=Test&utm_campaign=Tele2_8flight&utm_term=',
   },
-  results: [{
-    range: [0, 3.95],
-    title: 'Я — крохобор',
-    img: 'https://leonardo.osnova.io/d62c2294-f35c-d462-542c-24e533c0455e/',
-  }, {
-    range: [3.96, 4.45],
-    title: 'Я — жадина',
-    img: 'https://leonardo.osnova.io/6ff495dd-1db7-dbce-5af5-e46a06d6e565/',
-  }, {
-    range: [4.46, 4.95],
-    title: 'Я — ювелир',
-    img: 'https://leonardo.osnova.io/944b4d05-c3e8-6c4a-545b-4ff17b484abf/',
-  }, {
-    range: [4.96, 5.45],
-    title: 'Я — расточитель',
-    img: 'https://leonardo.osnova.io/1ae2f799-4d21-3b1d-9f9c-c8c793c0ec5c/',
-  }, {
-    range: [5.46, 100],
-    title: 'Я — транжира',
-    img: 'https://leonardo.osnova.io/f7435fca-caa6-5886-f16e-f87445582b75/',
-  }],
 };

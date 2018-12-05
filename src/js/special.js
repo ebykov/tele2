@@ -88,14 +88,12 @@ class Special extends BaseSpecial {
     EL.test.appendChild(EL.tInner);
 
     EL.result = makeElement('div', `${CSS.main}-result`);
-    EL.rNotice = makeElement('div', `${CSS.main}-result__notice`);
     EL.rHead = makeElement('div', `${CSS.main}-result__head`);
-    EL.rHeadInner = makeElement('div', `${CSS.main}-result__head-inner`);
     EL.rBottom = makeElement('div', `${CSS.main}-result__bottom`);
 
-    EL.rImg = makeElement('img', `${CSS.main}-result__img`);
     EL.rTitle = makeElement('div', `${CSS.main}-result__title`);
     EL.rCaption = makeElement('div', `${CSS.main}-result__caption`);
+    EL.rOutOf = makeElement('div', `${CSS.main}-result__out-of`);
     EL.rShare = makeElement('div', `${CSS.main}-result__share`);
     EL.rRestart = makeElement('div', `${CSS.main}-result__restart`, {
       innerHTML: `<span>Пройти еще раз</span>${Svg.refresh}`,
@@ -115,33 +113,17 @@ class Special extends BaseSpecial {
 
     EL.rBtnWrap.appendChild(EL.rBtn);
 
-    EL.rHeadInner.appendChild(EL.rTitle);
-    EL.rHeadInner.appendChild(EL.rCaption);
-    EL.rHeadInner.appendChild(EL.rShare);
-    EL.rHeadInner.appendChild(EL.rRestart);
-
-    EL.rHead.appendChild(EL.rImg);
-    EL.rHead.appendChild(EL.rHeadInner);
+    EL.rHead.appendChild(EL.rTitle);
+    EL.rHead.appendChild(EL.rCaption);
+    EL.rHead.appendChild(EL.rOutOf);
+    EL.rHead.appendChild(EL.rShare);
+    EL.rHead.appendChild(EL.rRestart);
 
     EL.rBottom.appendChild(EL.rText);
     EL.rBottom.appendChild(EL.rBtnWrap);
 
-    EL.result.appendChild(EL.rNotice);
     EL.result.appendChild(EL.rHead);
     EL.result.appendChild(EL.rBottom);
-  }
-
-  static getResult(score) {
-    let result = '';
-    Data.results.some((item) => {
-      if (item.range[0] <= score && item.range[1] >= score) {
-        result = item;
-        return true;
-      }
-      return false;
-    });
-
-    return result;
   }
 
   start() {
@@ -181,16 +163,23 @@ class Special extends BaseSpecial {
   }
 
   result() {
-    const result = Special.getResult(this.traffic / Data.questions.length);
-
     this.main.classList.add('is-result');
     this.main.removeChild(EL.test);
     this.main.appendChild(EL.result);
 
-    EL.rImg.src = result.img;
-    EL.rNotice.innerHTML = `<div>Все файлы теста весили ${pluralize(this.filesSize, ['гигабайт', 'гигабайта', 'гигабайт'])}, а вы потратили <span>${pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт'])}</span>.</div>`;
-    EL.rTitle.innerHTML = result.title;
-    EL.rCaption.innerHTML = `Удалось всё скачать в ${this.correctAnswers} из ${Data.questions.length} ситуаций`;
+    EL.rTitle.innerHTML = `Я всё скачал в ${this.correctAnswers} из ${Data.questions.length} ситуаций`;
+    if (this.traffic > this.filesSize) {
+      EL.rCaption.innerHTML = `И потратил ${pluralize(this.traffic - this.filesSize, ['лишних гигабайт', 'лишних гигабайта', 'лишних гигабайт'])}`;
+    } else {
+      EL.rCaption.innerHTML = `И потратил ${pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт'])}`;
+    }
+
+    EL.rOutOf.innerHTML = '';
+    if (this.correctAnswers > 0) {
+      EL.rOutOf.innerHTML += '<span class="is-filled"></span>'.repeat(this.correctAnswers);
+    }
+
+    EL.rOutOf.innerHTML += '<span></span>'.repeat(Data.questions.length - this.correctAnswers);
 
     removeChildren(EL.rShare);
     Share.make(EL.rShare, {
