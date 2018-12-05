@@ -744,7 +744,7 @@ button.tele2-btn.is-disabled,
 .tele2-test__head {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -755,6 +755,16 @@ button.tele2-btn.is-disabled,
       -ms-flex-align: center;
           align-items: center;
 }
+@media (min-width: 375px) {
+  .tele2-test__head {
+    height: 150px;
+  }
+}
+@media (min-width: 680px) {
+  .tele2-test__head {
+    height: 200px;
+  }
+}
 .tele2-test__spinner {
   width: 75px;
   height: 75px;
@@ -763,7 +773,18 @@ button.tele2-btn.is-disabled,
           animation: spin 1s steps(12) infinite;
 }
 .tele2-test__img {
+  height: 100px;
   color: #4d5159;
+}
+@media (min-width: 375px) {
+  .tele2-test__img {
+    height: 150px;
+  }
+}
+@media (min-width: 680px) {
+  .tele2-test__img {
+    height: 200px;
+  }
 }
 .tele2-test__img > svg {
   max-width: 100%;
@@ -788,7 +809,12 @@ button.tele2-btn.is-disabled,
 }
 .tele2-test__q {
   color: #fff;
-  line-height: 1.5em;
+  line-height: 1.3em;
+}
+@media (min-width: 680px) {
+  .tele2-test__q {
+    line-height: 1.5em;
+  }
 }
 .tele2-test__q-title {
   margin-top: 12px;
