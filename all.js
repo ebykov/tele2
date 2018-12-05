@@ -1324,9 +1324,11 @@ var Slider = function () {
 
   _createClass(Slider, [{
     key: 'start',
-    value: function start(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    value: function start(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var e = event;
 
       if (e.touches) {
         e = e.touches[0];
@@ -1349,9 +1351,11 @@ var Slider = function () {
     }
   }, {
     key: 'move',
-    value: function move(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    value: function move(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var e = event;
 
       if (e.touches) {
         e = e.touches[0];
