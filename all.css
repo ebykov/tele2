@@ -556,6 +556,16 @@ button.tele2-btn.is-disabled,
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
+@media (max-width: 679px) {
+  .tele2-logo {
+    width: 50px;
+    height: 19px;
+  }
+  .tele2-logo > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
 @media (min-width: 680px) {
   .tele2-logo {
     top: 18px;
@@ -854,14 +864,14 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__head {
   position: relative;
-  padding: 40px 10px 15px;
+  padding: 30px 10px 15px;
   text-align: center;
   border: 3px solid #d24b91;
   border-radius: 5px;
 }
 @media (min-width: 375px) {
   .tele2-result__head {
-    padding: 50px 20px 15px;
+    padding: 30px 20px 15px;
   }
 }
 @media (min-width: 680px) {

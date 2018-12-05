@@ -40,11 +40,20 @@
         background-color: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
+    .wrapper__inner {
+        max-width: 100%;
+        padding: 5px 0;
+    }
+    @media (min-width: 680px) {
+        .wrapper__inner {
+            padding: 10px 0;
+        }
+    }
 </style>
 
 <div class="wrapper">
     <span></span>
-    <div style="max-width: 100%; padding: 10px 0;">
+    <div class="wrapper__inner">
         <div id="tele2-special" class="tele2" style="opacity: 0;">
             <div class="tele2__bg"></div>
             <div id="tele2-special-main" class="tele2__main">
@@ -109,7 +118,7 @@
       };
     }
     d.body.appendChild(s);
-  })(document, 24);
+  })(document, 25);
 </script>
 
 </body>
