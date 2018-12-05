@@ -443,7 +443,7 @@ button.tele2-btn,
   color: #fff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   border: 2px solid currentColor;
   border-radius: 5px;
@@ -452,6 +452,12 @@ button.tele2-btn,
           box-shadow: none;
   -webkit-transition: color 0.2s, border-color 0.2s, background-color 0.2s;
   transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+@media (min-width: 375px) {
+  button.tele2-btn,
+  .tele2-btn {
+    font-size: 18px;
+  }
 }
 abutton.tele2-btn,
 a.tele2-btn {
@@ -527,6 +533,9 @@ button.tele2-btn.is-disabled,
 }
 .tele2__main.is-result {
   padding: 0 5px 5px;
+  border: 0;
+}
+.tele2.is-feed .tele2__main {
   border: 0;
 }
 @media (min-width: 680px) {
@@ -690,7 +699,7 @@ button.tele2-btn.is-disabled,
   left: 0;
   width: 95px;
   height: 30px;
-  color: #4d5159;
+  color: #00b9ff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
   font-size: 18px;
@@ -719,7 +728,7 @@ button.tele2-btn.is-disabled,
 @media (min-width: 680px) {
   .tele2-test__inner {
     min-height: 594px;
-    padding: 80px 0 145px;
+    padding: 75px 0 140px;
   }
 }
 .tele2-test__head {
@@ -764,7 +773,7 @@ button.tele2-btn.is-disabled,
 }
 @media (min-width: 680px) {
   .tele2-test__body {
-    margin-top: 35px;
+    margin-top: 30px;
   }
 }
 .tele2-test__q {
@@ -772,11 +781,11 @@ button.tele2-btn.is-disabled,
   line-height: 1.5em;
 }
 .tele2-test__q-title {
-  margin-top: 14px;
+  margin-top: 12px;
   font-weight: 700;
 }
 .tele2-test__q-notice {
-  margin-top: 10px;
+  margin-top: 8px;
   opacity: 0.4;
 }
 .tele2-test__answer {
@@ -802,7 +811,7 @@ button.tele2-btn.is-disabled,
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 65px;
+    bottom: 60px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -845,10 +854,15 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__head {
   position: relative;
-  padding: 50px 20px 15px;
+  padding: 50px 10px 15px;
   text-align: center;
   border: 3px solid #d24b91;
   border-radius: 5px;
+}
+@media (min-width: 375px) {
+  .tele2-result__head {
+    padding: 50px 20px 15px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-result__head {
@@ -859,13 +873,23 @@ button.tele2-btn.is-disabled,
   color: #00b9ff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 18px;
+}
+@media (min-width: 375px) {
+  .tele2-result__title {
+    font-size: 24px;
+  }
 }
 .tele2-result__caption {
-  margin-top: 8px;
+  margin-top: 2px;
   color: #fff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
+}
+@media (min-width: 375px) {
+  .tele2-result__caption {
+    margin-top: 8px;
+  }
 }
 .tele2-result__out-of {
   display: -webkit-box;
@@ -877,7 +901,12 @@ button.tele2-btn.is-disabled,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 12px;
+  margin-top: 8px;
+}
+@media (min-width: 375px) {
+  .tele2-result__out-of {
+    margin-top: 12px;
+  }
 }
 .tele2-result__out-of > span {
   -ms-flex-negative: 0;
@@ -907,8 +936,14 @@ button.tele2-btn.is-disabled,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 25px;
-  min-height: 44px;
+  margin-top: 12px;
+  min-height: 34px;
+}
+@media (min-width: 375px) {
+  .tele2-result__share {
+    margin-top: 25px;
+    min-height: 44px;
+  }
 }
 .tele2-result__restart {
   display: -webkit-inline-box;
@@ -917,9 +952,8 @@ button.tele2-btn.is-disabled,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
   color: #fff;
-  font-size: 18px;
   cursor: pointer;
   opacity: 0.5;
   -webkit-transition: opacity 0.2s;
@@ -928,6 +962,12 @@ button.tele2-btn.is-disabled,
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+@media (min-width: 375px) {
+  .tele2-result__restart {
+    margin-top: 30px;
+    font-size: 18px;
+  }
 }
 .tele2-result__restart > span {
   margin-right: 8px;
@@ -941,10 +981,16 @@ button.tele2-btn.is-disabled,
   }
 }
 .tele2-result__bottom {
-  margin-top: 20px;
-  padding: 15px 20px 20px;
+  margin-top: 5px;
+  padding: 15px 10px 20px;
   border: 3px solid #fff;
   border-radius: 5px;
+}
+@media (min-width: 375px) {
+  .tele2-result__bottom {
+    margin-top: 20px;
+    padding: 15px 20px 20px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-result__bottom {
@@ -953,11 +999,20 @@ button.tele2-btn.is-disabled,
 }
 .tele2-result__text {
   color: #fff;
-  font-size: 18px;
   line-height: 1.5em;
 }
+@media (min-width: 375px) {
+  .tele2-result__text {
+    font-size: 18px;
+  }
+}
 .tele2-result__btn {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+@media (min-width: 375px) {
+  .tele2-result__btn {
+    margin-top: 20px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-result__btn {
@@ -981,8 +1036,8 @@ button.tele2-btn.is-disabled,
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  min-width: 58px;
-  height: 44px;
+  min-width: 48px;
+  height: 34px;
   color: #fff;
   border: 2px solid currentColor;
   border-radius: 5px;
@@ -1002,6 +1057,12 @@ button.tele2-btn.is-disabled,
     background-color: transparent;
   }
 }
+@media (min-width: 375px) {
+  .tele2 .likely__widget {
+    min-width: 58px;
+    height: 44px;
+  }
+}
 @media (min-width: 680px) {
   .tele2 .likely__widget--facebook {
     padding: 0 20px 0 8px;
@@ -1015,13 +1076,25 @@ button.tele2-btn.is-disabled,
 }
 .tele2 .likely__icon svg {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
+@media (min-width: 375px) {
+  .tele2 .likely__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
 .tele2 .likely__icon--vkontakte svg {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 375px) {
+  .tele2 .likely__icon--vkontakte svg {
+    width: 28px;
+    height: 28px;
+  }
 }
 @media (min-width: 680px) {
   .tele2 .likely__icon--facebook {
