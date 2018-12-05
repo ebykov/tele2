@@ -707,7 +707,7 @@ button.tele2-btn.is-disabled,
   position: absolute;
   top: 7px;
   left: 0;
-  width: 95px;
+  width: 55px;
   height: 30px;
   color: #00b9ff;
   font-family: Roboto Slab, serif;
@@ -726,14 +726,20 @@ button.tele2-btn.is-disabled,
   .tele2-test__pages {
     top: 17px;
     left: 20px;
+    width: 95px;
   }
 }
 .tele2-test__inner {
   position: relative;
   width: 560px;
   max-width: 100%;
-  padding: 60px 0 0;
+  padding: 50px 0 0;
   margin: 0 auto;
+}
+@media (min-width: 375px) {
+  .tele2-test__inner {
+    padding: 60px 0 0;
+  }
 }
 @media (min-width: 680px) {
   .tele2-test__inner {
@@ -800,7 +806,12 @@ button.tele2-btn.is-disabled,
           animation: pinkLight 2s linear both;
 }
 .tele2-test__body {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+@media (min-width: 375px) {
+  .tele2-test__body {
+    margin-top: 20px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-test__body {
@@ -809,7 +820,13 @@ button.tele2-btn.is-disabled,
 }
 .tele2-test__q {
   color: #fff;
+  font-size: 14px;
   line-height: 1.3em;
+}
+@media (min-width: 375px) {
+  .tele2-test__q {
+    font-size: 16px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-test__q {
@@ -826,10 +843,17 @@ button.tele2-btn.is-disabled,
 }
 .tele2-test__answer {
   color: #fff;
-  line-height: 1.5em;
+  font-size: 14px;
+  line-height: 1.3em;
+}
+@media (min-width: 375px) {
+  .tele2-test__answer {
+    font-size: 16px;
+  }
 }
 .tele2-test__answer-title {
   font-weight: 700;
+  line-height: 1.5em;
 }
 @media (min-width: 680px) {
   .tele2-test__answer-title {
@@ -840,7 +864,12 @@ button.tele2-btn.is-disabled,
   margin-top: 10px;
 }
 .tele2-test__bottom {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+@media (min-width: 375px) {
+  .tele2-test__bottom {
+    margin-top: 20px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-test__bottom {
@@ -873,8 +902,13 @@ button.tele2-btn.is-disabled,
   }
 }
 .tele2-test__btn {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
+}
+@media (min-width: 375px) {
+  .tele2-test__btn {
+    margin-top: 20px;
+  }
 }
 @media (min-width: 680px) {
   .tele2-test__btn {
