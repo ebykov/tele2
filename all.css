@@ -823,7 +823,7 @@ button.tele2-btn.is-disabled,
   }
 }
 .tele2-test__slider {
-  width: calc(100% - 20px);
+  width: calc(100% - 30px);
   max-width: 380px;
   margin: 0 auto;
 }
