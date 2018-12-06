@@ -532,7 +532,7 @@ button.tele2-btn.is-disabled,
   overflow: hidden;
 }
 .tele2__main.is-result {
-  padding: 0 5px 5px;
+  padding: 5px;
   border: 0;
 }
 .tele2.is-feed .tele2__main {

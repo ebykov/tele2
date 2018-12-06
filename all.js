@@ -684,7 +684,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
   name: 'Tele2', // уникальное имя спецпроекта. Оно же — название главного класса. Используется на странице, куда интегрируется спецпроект
-  analyticsCategory: 'Tele2',
+  analyticsCategory: 'Tele2 Gigi',
   sendPageView: false, // отключаем, если спецпроект не на отдельной странице
   listenedEvents: ['click'] // слушаем события (click, input, change, etc.). Обычно нужен только click
 };
@@ -886,6 +886,8 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'restart',
     value: function restart() {
+      Analytics.sendEvent('Restart');
+
       this.setInitialParams();
 
       this.main.classList.remove('is-result');
@@ -901,6 +903,8 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'continue',
     value: function _continue() {
+      Analytics.sendEvent('Next');
+
       this.activeIndex += 1;
       this.slider.reset();
       EL.tBtn.classList.remove('is-filled');
@@ -911,6 +915,8 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'result',
     value: function result() {
+      Analytics.sendEvent('Result');
+
       this.main.classList.add('is-result');
       this.main.removeChild(EL.test);
       this.main.appendChild(EL.result);
@@ -963,6 +969,9 @@ var Special = function (_BaseSpecial) {
       if (this.downloading) {
         return;
       }
+
+      Analytics.sendEvent('Download');
+
       this.downloading = true;
 
       var q = _data2.default.questions[this.activeIndex];
@@ -1289,6 +1298,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dom = __webpack_require__(4);
 
+var _analytics = __webpack_require__(3);
+
+var Analytics = _interopRequireWildcard(_analytics);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1327,6 +1342,8 @@ var Slider = function () {
     value: function start(event) {
       event.preventDefault();
       event.stopPropagation();
+
+      Analytics.sendEvent('Slider', 'Down');
 
       var e = event;
 
@@ -1396,6 +1413,8 @@ var Slider = function () {
   }, {
     key: 'stop',
     value: function stop(e) {
+      Analytics.sendEvent('Slider', 'Up');
+
       document.removeEventListener('mousemove', this.move);
       document.removeEventListener('touchmove', this.move);
       document.removeEventListener('mouseup', this.stop);
@@ -1409,6 +1428,8 @@ var Slider = function () {
     value: function clickHandler(e) {
       e.preventDefault();
       e.stopPropagation();
+
+      Analytics.sendEvent('Slider');
 
       if (e.touches) {
         e = e.touches[0];
