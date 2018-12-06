@@ -903,7 +903,7 @@ var Special = function (_BaseSpecial) {
   }, {
     key: 'continue',
     value: function _continue() {
-      Analytics.sendEvent('Next');
+      Analytics.sendEvent('Next - ' + (this.activeIndex + 1));
 
       this.activeIndex += 1;
       this.slider.reset();
@@ -970,7 +970,7 @@ var Special = function (_BaseSpecial) {
         return;
       }
 
-      Analytics.sendEvent('Download');
+      Analytics.sendEvent('Download - ' + (this.activeIndex + 1));
 
       this.downloading = true;
 
