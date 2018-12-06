@@ -837,7 +837,7 @@ var EL = {};
 
 function pluralize(count, words) {
   var cases = [2, 0, 1, 1, 1, 2];
-  return count + '&nbsp;' + words[count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]];
+  return words[count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]];
 }
 
 var Special = function (_BaseSpecial) {
@@ -923,9 +923,9 @@ var Special = function (_BaseSpecial) {
 
       EL.rTitle.innerHTML = '\u042F \u0432\u0441\u0451 \u0441\u043A\u0430\u0447\u0430\u043B \u0432 ' + this.correctAnswers + ' \u0438\u0437 ' + _data2.default.questions.length + ' \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0439';
       if (this.traffic > this.filesSize) {
-        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + pluralize(this.traffic - this.filesSize, ['лишних гигабайт', 'лишних гигабайта', 'лишних гигабайт']);
+        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + (this.traffic - this.filesSize) + '&nbsp;' + pluralize(this.traffic - this.filesSize, ['лишний', 'лишних', 'лишних']) + ' ' + pluralize(this.traffic - this.filesSize, ['гигабайт', 'гигабайта', 'гигабайт']);
       } else {
-        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт']);
+        EL.rCaption.innerHTML = '\u0418 \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u043B ' + this.traffic + '&nbsp;' + pluralize(this.traffic, ['гигабайт', 'гигабайта', 'гигабайт']);
       }
 
       EL.rOutOf.innerHTML = '';
