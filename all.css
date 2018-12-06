@@ -733,17 +733,18 @@ button.tele2-btn.is-disabled,
   position: relative;
   width: 560px;
   max-width: 100%;
+  min-height: 424px;
   padding: 50px 0 0;
   margin: 0 auto;
 }
 @media (min-width: 375px) {
   .tele2-test__inner {
+    min-height: 534px;
     padding: 60px 0 0;
   }
 }
 @media (min-width: 680px) {
   .tele2-test__inner {
-    min-height: 594px;
     padding: 75px 0 140px;
   }
 }
