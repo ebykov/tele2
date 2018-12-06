@@ -837,7 +837,7 @@ var EL = {};
 
 function pluralize(count, words) {
   var cases = [2, 0, 1, 1, 1, 2];
-  return count + "&nbsp;" + words[count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]];
+  return count + '&nbsp;' + words[count % 100 > 4 && count % 100 < 20 ? 2 : cases[Math.min(count % 10, 5)]];
 }
 
 var Special = function (_BaseSpecial) {
@@ -931,7 +931,7 @@ var Special = function (_BaseSpecial) {
 
       (0, _dom.removeChildren)(EL.rShare);
       Share.make(EL.rShare, {
-        url: this.params.share.url + this.correctAnswers,
+        url: this.params.share.url + '/' + this.correctAnswers + '/' + this.traffic,
         title: this.params.share.title,
         twitter: this.params.share.title
       });
