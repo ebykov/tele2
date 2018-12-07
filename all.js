@@ -1040,6 +1040,8 @@ var Special = function (_BaseSpecial) {
       this.enterImg.classList.add('is-enable');
 
       Special.createElements();
+
+      Analytics.sendEvent('First screen', 'Show');
     }
   }], [{
     key: 'createElements',
