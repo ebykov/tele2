@@ -34,7 +34,7 @@
 }
 @-webkit-keyframes blueLight {
   64%, 70%, 100% {
-    fill: #00b9ff;
+    fill: #fff;
   }
   0%, 60%, 65% {
     fill: #4d5159;
@@ -42,7 +42,7 @@
 }
 @keyframes blueLight {
   64%, 70%, 100% {
-    fill: #00b9ff;
+    fill: #fff;
   }
   0%, 60%, 65% {
     fill: #4d5159;
@@ -270,8 +270,8 @@
   height: 100%;
 }
 .t2slider-line--hope {
-  background-color: #00b9ff;
-  background-image: linear-gradient(45deg, #fff 0px, #fff 3.5px, #00b9ff 3.5px, #00b9ff 5.5px, #fff 5.5px);
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #fff 0px, #fff 3.5px, #fff 3.5px, #fff 5.5px, #fff 5.5px);
   background-repeat: repeat;
   background-size: 9px 100%;
 }
@@ -330,7 +330,7 @@
   margin: auto;
   width: 14px;
   height: 14px;
-  border: 1px solid #00b9ff;
+  border: 1px solid #fff;
   border-radius: 100%;
 }
 .t2slider-handle__tooltip {
@@ -709,7 +709,7 @@ button.tele2-btn.is-disabled,
   left: 0;
   width: 55px;
   height: 30px;
-  color: #00b9ff;
+  color: #fff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
   font-size: 18px;
@@ -941,7 +941,7 @@ button.tele2-btn.is-disabled,
   }
 }
 .tele2-result__title {
-  color: #00b9ff;
+  color: #fff;
   font-family: Roboto Slab, serif;
   font-weight: 700;
   font-size: 18px;
